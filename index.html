@@ -1,1 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • Home{% endblock %}
+{% block content %}
+<section class="hero glass">
+    <div class="hero-copy">
+        <p class="tag">Marine Adventure Platform</p>
+        <h1>Welcome to <span class="fjalla-one-regular">SERRAFINS</span></h1>
+        <p>
+            Experience the ocean like never before with SERRAFINS. Book snorkeling and diving packages with 
+            certified experts and registered marine science students. Explore vibrant reefs, learn marine biology, 
+            and create unforgettable memories.
+        </p>
+        <div class="actions">
+            <a href="{% url 'packages' %}" class="btn btn-primary">View Packages</a>
+            <a href="{% url 'login' %}" class="btn btn-soft">Sign In</a>
+        </div>
+    </div>
+
+    <div class="hero-3d ux-gallery-shell">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <div class="ux-works-line hero-right-ux">
+            <span class="ux-label">SERRAFINS FOR</span>
+            <div class="dropping-texts" aria-label="UX works for Researchers, Developers, Snerklers, Divers, and Everyone">
+                <div>Researchers</div>
+                <div>Developers</div>
+                <div>Snerklers</div>
+                <div>Divers</div>
+                <div>Everyone!</div>
+            </div>
+        </div>
+
+        <div class="ux-gallery glass">
+            <div class="ux-gallery-header">
+                <h3>Team moments</h3>
+                <p>Highlights from our community.</p>
+            </div>
+            <div class="repeater-marquee" aria-label="Auto scrolling gallery">
+                <div class="repeater-track">
+                    <img src="{% static 'images/repeaters/repeater-1.jpeg' %}" alt="Team gallery 1" />
+                    <img src="{% static 'images/repeaters/repeater-2.jpeg' %}" alt="Team gallery 2" />
+                    <img src="{% static 'images/repeaters/repeater-3.jpeg' %}" alt="Team gallery 3" />
+                    <img src="{% static 'images/repeaters/repeater-4.jpeg' %}" alt="Team gallery 4" />
+                    <img src="{% static 'images/repeaters/repeater-5.jpeg' %}" alt="Team gallery 5" />
+                    <img src="{% static 'images/repeaters/repeater-6.jpeg' %}" alt="Team gallery 6" />
+                    <img src="{% static 'images/repeaters/repeater-1.jpeg' %}" alt="Team gallery 1 repeat" />
+                    <img src="{% static 'images/repeaters/repeater-2.jpeg' %}" alt="Team gallery 2 repeat" />
+                    <img src="{% static 'images/repeaters/repeater-3.jpeg' %}" alt="Team gallery 3 repeat" />
+                    <img src="{% static 'images/repeaters/repeater-4.jpeg' %}" alt="Team gallery 4 repeat" />
+                    <img src="{% static 'images/repeaters/repeater-5.jpeg' %}" alt="Team gallery 5 repeat" />
+                    <img src="{% static 'images/repeaters/repeater-6.jpeg' %}" alt="Team gallery 6 repeat" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Snorkeling Section -->
+<section class="experience-section glass">
+    <div class="experience-content">
+        <div class="experience-text">
+            <h2>Snorkeling with Experts</h2>
+            <p>
+                Dive with snorkeling experts for better prices and the best experience with registered marine science students. 
+                Explore vibrant coral ecosystems, encounter tropical fish species, and learn fascinating facts about marine biodiversity 
+                from our knowledgeable guides. Perfect for all experience levels.
+            </p>
+            <a href="{% url 'packages' %}" class="btn btn-primary">View Snorkeling Packages</a>
+        </div>
+        <div class="experience-image">
+            <img src="{% static 'images/snogling.webp' %}" alt="Snorkeling Experience" class="tilt-card" />
+        </div>
+    </div>
+</section>
+
+<!-- Diving Section -->
+<section class="experience-section glass">
+    <div class="experience-content reverse">
+        <div class="experience-text">
+            <h2>Certified Diving Expeditions</h2>
+            <p>
+                Experience the thrill of deep diving with our professional diving instructors and marine science students. 
+                Explore breathtaking underwater landscapes, encounter magnificent marine creatures, and dive to depths where 
+                few dare to venture. Both beginner and advanced certifications available.
+            </p>
+            <a href="{% url 'packages' %}" class="btn btn-primary">View Diving Packages</a>
+        </div>
+        <div class="experience-image">
+            <img src="{% static 'images/diving.jpg' %}" alt="Diving Experience" class="tilt-card" />
+        </div>
+    </div>
+</section>
+
+<!-- Conservation & Projects Section -->
+<section class="experience-section glass">
+    <div class="experience-content">
+        <div class="experience-text">
+            <h2>Conservation & Open Source Projects</h2>
+            <p>
+                Join our mission to protect marine ecosystems through cutting-edge research and AI-powered tools. 
+                Explore our open source projects including shark species recognition, habitat prediction using GIS mapping, 
+                and interactive educational resources. Support marine science and conservation efforts.
+            </p>
+            <button onclick="openProjectsModal()" class="btn btn-primary">View Our Projects</button>
+        </div>
+        <div class="experience-image">
+            <img src="{% static 'images/cnn.jpeg' %}" alt="Marine Conservation" class="tilt-card" />
+        </div>
+    </div>
+</section>
+
+<!-- Projects Modal -->
+<div id="projectsModal" class="modal glass-modal">
+    <div class="modal-content glass">
+        <span class="close-btn" onclick="closeProjectsModal()">&times;</span>
+        <h2>🦈 Open Source Projects</h2>
+        <p>Explore our marine science initiatives and AI-powered conservation tools.</p>
+        <div class="projects-grid">
+            <button class="project-btn glass" data-url="{% url 'shark_key' %}" onclick="window.location.href=this.dataset.url">
+                <h3>📚 Shark Species Recognition Key</h3>
+                <p>Interactive guide to identify shark species by visual characteristics</p>
+            </button>
+            <button class="project-btn glass" data-url="{% url 'shark_cnn' %}" onclick="window.location.href=this.dataset.url">
+                <h3>🤖 Shark Species CNN</h3>
+                <p>AI-powered image recognition using deep learning models (v1 running on-site)</p>
+            </button>
+            <button class="project-btn glass" onclick="window.location.href='#'">
+                <h3>🗺️ Shark Habitat Prediction GIS</h3>
+                <p>Geographic analysis of shark habitats and migration patterns (Coming Soon)</p>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
 

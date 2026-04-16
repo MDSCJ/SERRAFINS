@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}SERRAFINS • Dashboard{% endblock %}
+{% block content %}
+<section class="dashboard-grid">
+    <article class="glass panel tilt-card">
+        <h2>Hello, {{ user.username }}</h2>
+        <p>Your login is active and protected by Django sessions.</p>
+    </article>
+
+    <article class="glass panel tilt-card">
+        <h3>Database readiness</h3>
+        <ul>
+            <li>Environment based DB credentials</li>
+            <li>Aiven PostgreSQL support</li>
+            <li>Encrypted connection using SSL mode</li>
+        </ul>
+    </article>
+
+    <article class="glass panel tilt-card">
+        <h3>Theme system</h3>
+        <p>Light blue and white, liquid borders, frosted cards, and subtle 3D depth.</p>
+    </article>
+</section>
+{% endblock %}

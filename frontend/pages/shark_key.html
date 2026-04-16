@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • Shark Species Recognition{% endblock %}
+{% block content %}
+<section class="shark-key-page">
+    <h1>🦈 Shark Species Recognition Key</h1>
+    <p class="subtitle">Interactive guide to identify shark species by visual characteristics</p>
+    
+    <div class="key-grid">
+        <!-- Great White Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Great White Shark</h3>
+                <span class="species-code">Carcharodon carcharias</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 4-6 meters (13-20 ft)</li>
+                <li><strong>Color:</strong> Grey top, white belly</li>
+                <li><strong>Features:</strong> Triangular dorsal fin, black eyes</li>
+                <li><strong>Habitat:</strong> Coastal waters, temperate</li>
+                <li><strong>Behavior:</strong> Apex predator, solitary</li>
+            </ul>
+        </div>
+
+        <!-- Hammerhead Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Hammerhead Shark</h3>
+                <span class="species-code">Sphyrna mokarran</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 3-6 meters (10-20 ft)</li>
+                <li><strong>Color:</strong> Grey-brown with lighter belly</li>
+                <li><strong>Features:</strong> Distinctive hammer-shaped head</li>
+                <li><strong>Habitat:</strong> Tropical and temperate waters</li>
+                <li><strong>Behavior:</strong> School in large groups</li>
+            </ul>
+        </div>
+
+        <!-- Tiger Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Tiger Shark</h3>
+                <span class="species-code">Galeocerdo cuvier</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 2.4-3.3 meters (8-11 ft)</li>
+                <li><strong>Color:</strong> Grey-blue with vertical stripes</li>
+                <li><strong>Features:</strong> Blunt snout, striped markings</li>
+                <li><strong>Habitat:</strong> Warm coastal waters</li>
+                <li><strong>Behavior:</strong> Nocturnal, opportunistic feeders</li>
+            </ul>
+        </div>
+
+        <!-- Bull Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Bull Shark</h3>
+                <span class="species-code">Carcharhinus leucas</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 2-2.4 meters (6.5-8 ft)</li>
+                <li><strong>Color:</strong> Grey back, white underside</li>
+                <li><strong>Features:</strong> Short snout, stocky body</li>
+                <li><strong>Habitat:</strong> Coastal, freshwater rivers</li>
+                <li><strong>Behavior:</strong> Aggressive, territorial</li>
+            </ul>
+        </div>
+
+        <!-- Lemon Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Lemon Shark</h3>
+                <span class="species-code">Negaprion brevirostris</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 0.9-2.4 meters (3-8 ft)</li>
+                <li><strong>Color:</strong> Yellowish-brown body</li>
+                <li><strong>Features:</strong> Flat head, small mouth</li>
+                <li><strong>Habitat:</strong> Tropical/subtropical shallow waters</li>
+                <li><strong>Behavior:</strong> Viviparous, live young</li>
+            </ul>
+        </div>
+
+        <!-- Whale Shark -->
+        <div class="species-card glass tilt-card">
+            <div class="species-header">
+                <h3>Whale Shark</h3>
+                <span class="species-code">Rhincodon typus</span>
+            </div>
+            <ul class="characteristics">
+                <li><strong>Size:</strong> 9-18 meters (30-59 ft) - Largest fish</li>
+                <li><strong>Color:</strong> Grey with white spots</li>
+                <li><strong>Features:</strong> Massive mouth, filter feeder</li>
+                <li><strong>Habitat:</strong> Tropical waters</li>
+                <li><strong>Behavior:</strong> Gentle, plankton feeder</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

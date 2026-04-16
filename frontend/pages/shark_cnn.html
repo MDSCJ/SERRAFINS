@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • Shark Species CNN{% endblock %}
+{% block content %}
+<section class="shark-cnn-page">
+    <h1>🤖 Shark Species Recognition CNN</h1>
+    <p class="subtitle">AI-powered image recognition using deep learning models</p>
+    
+    <div class="cnn-container glass">
+        <div class="cnn-info">
+            <h2>Model Information</h2>
+            <ul>
+                <li><strong>Version:</strong> 1.0 (Running on-site)</li>
+                <li><strong>Model Type:</strong> Convolutional Neural Network (CNN)</li>
+                <li><strong>Framework:</strong> PyTorch</li>
+                <li><strong>Species Supported:</strong> 15+ shark species</li>
+                <li><strong>Accuracy:</strong> ~94% on validation set</li>
+            </ul>
+        </div>
+
+        <div class="cnn-upload glass">
+            <h3>Upload Shark Image</h3>
+            <form id="cnnForm" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="imageInput" name="image" accept="image/*" hidden />
+                    <label for="imageInput" class="upload-label">
+                        <p>🖼️ Click to upload or drag and drop</p>
+                        <p class="small">PNG, JPG, or WebP (Max 5MB)</p>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Analyze Image</button>
+            </form>
+            <div id="loadingSpinner" class="spinner" style="display: none;"></div>
+        </div>
+
+        <div id="resultsContainer" class="results-container glass" style="display: none;">
+            <h3>Recognition Results</h3>
+            <div id="resultImage"></div>
+            <div id="predictions" class="predictions-list"></div>
+        </div>
+
+        <div class="model-location">
+            <h3>📍 Model File Location</h3>
+            <p><strong>Place your .pt PyTorch model file here:</strong></p>
+            <code class="code-block">/home/chamath/python/SERRAFINS/models/shark_species_cnn.pt</code>
+            <p class="info-text">Create the <code>models</code> folder if it doesn't exist. The model should be compatible with PyTorch 2.0+</p>
+        </div>
+
+        <div class="version-info">
+            <h3>Version Roadmap</h3>
+            <div class="roadmap">
+                <div class="roadmap-item completed">
+                    <span class="version-badge">v1.0</span>
+                    <p>On-site CNN inference with PyTorch</p>
+                </div>
+                <div class="roadmap-item pending">
+                    <span class="version-badge">v2.0</span>
+                    <p>Real-time camera feed processing</p>
+                </div>
+                <div class="roadmap-item pending">
+                    <span class="version-badge">v2.1</span>
+                    <p>Extended species database (50+ species)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Handle file upload
+document.getElementById('uploadArea').addEventListener('click', () => {
+    document.getElementById('imageInput').click();
+});
+
+// Drag and drop
+document.getElementById('uploadArea').addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    document.getElementById('uploadArea').style.opacity = '0.7';
+});
+
+document.getElementById('uploadArea').addEventListener('dragleave', () => {
+    document.getElementById('uploadArea').style.opacity = '1';
+});
+
+document.getElementById('uploadArea').addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    document.getElementById('uploadArea').style.opacity = '1';
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('imageInput').files = files;
+    }
+});
+
+// Form submission
+document.getElementById('cnnForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(document.getElementById('cnnForm'));
+    const file = document.getElementById('imageInput').files[0];
+    
+    if (!file) {
+        alert('Please select an image');
+        return;
+    }
+
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('resultsContainer').style.display = 'none';
+
+    try {
+        const response = await fetch("{% url 'shark_cnn' %}", {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            displayResults(data);
+        } else {
+            alert('Error: ' + data.error);
+        }
+    } catch (error) {
+        alert('An error occurred: ' + error.message);
+    } finally {
+        document.getElementById('loadingSpinner').style.display = 'none';
+    }
+});
+
+function displayResults(data) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    const resultImage = document.getElementById('resultImage');
+    const predictions = document.getElementById('predictions');
+
+    // Display image
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        resultImage.innerHTML = `<img src="${e.target.result}" alt="Uploaded shark image" style="max-width: 100%; border-radius: 12px;" />`;
+    };
+    reader.readAsDataURL(document.getElementById('imageInput').files[0]);
+
+    // Display predictions
+    predictions.innerHTML = '<h4>Top Predictions:</h4>';
+    data.predictions.forEach((pred, index) => {
+        predictions.innerHTML += `
+            <div class="prediction-item">
+                <span class="rank">#${index + 1}</span>
+                <span class="species">${pred.species}</span>
+                <span class="confidence">${(pred.confidence * 100).toFixed(2)}%</span>
+                <div class="confidence-bar">
+                    <div class="bar-fill" style="width: ${pred.confidence * 100}%"></div>
+                </div>
+            </div>
+        `;
+    });
+
+    resultsContainer.style.display = 'block';
+}
+</script>
+{% endblock %}

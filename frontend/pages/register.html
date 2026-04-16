@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}SERRAFINS • Register{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+    <form method="post" class="glass auth-card">
+        {% csrf_token %}
+        <h2>Create account</h2>
+        <p class="muted">Register to access your dashboard.</p>
+
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="field-error">{{ field.errors|striptags }}</div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Create account</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}SERRAFINS{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script defer src="{% static 'javascript/main.js' %}"></script>
+</head>
+<body>
+    <canvas id="liquid-canvas" aria-hidden="true"></canvas>
+    <div class="ambient-layer"></div>
+
+    <header class="glass nav-wrap">
+        <div class="nav-brand">🦈 SERRAFINS</div>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'packages' %}">Packages</a>
+            <a href="{% url 'about' %}">About</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="page-shell">
+        {% if messages %}
+            <section class="messages">
+                {% for message in messages %}
+                    <div class="glass message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,386 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • About Us{% endblock %}
+{% block content %}
+<section class="about-hero glass">
+    <h1>About SERRAFINS</h1>
+    <p>Marine Science | Conservation | Education | Innovation</p>
+</section>
+
+<!-- Founders Section -->
+<section class="founders-section">
+    <h2>Meet Our Founders</h2>
+    <div class="founders-grid">
+        <!-- Founder 1 -->
+        <div class="founder-card glass tilt-card">
+            <div class="founder-image">
+                <img src="{% static 'images/founder1.jpg' %}" alt="Founder" />
+            </div>
+            <div class="founder-content">
+                <h3>Dr. Sarah Reef</h3>
+                <p class="title">Marine Biologist & Founder</p>
+                <p class="description">Leading marine conservation initiatives with 15+ years of research in shark behavior and ocean ecosystems.</p>
+                <div class="founder-links">
+                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founder 2 -->
+        <div class="founder-card glass tilt-card">
+            <div class="founder-image">
+                <img src="{% static 'images/founder2.jpg' %}" alt="Founder" />
+            </div>
+            <div class="founder-content">
+                <h3>Prof. James Ocean</h3>
+                <p class="title">AI & Data Science Lead</p>
+                <p class="description">Expert in machine learning applications for marine biology. Pioneering AI-driven conservation solutions.</p>
+                <div class="founder-links">
+                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founder 3 -->
+        <div class="founder-card glass tilt-card">
+            <div class="founder-image">
+                <img src="{% static 'images/founder3.jpg' %}" alt="Founder" />
+            </div>
+            <div class="founder-content">
+                <h3>Emma Wave</h3>
+                <p class="title">Education & Outreach</p>
+                <p class="description">Dedicated to making marine science accessible. Developing interactive learning platforms for students worldwide.</p>
+                <div class="founder-links">
+                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founder 4 -->
+        <div class="founder-card glass tilt-card">
+            <div class="founder-image">
+                <img src="{% static 'images/founder4.jpg' %}" alt="Founder" />
+            </div>
+            <div class="founder-content">
+                <h3>Dr. Marcus Tide</h3>
+                <p class="title">GIS & Habitat Mapping</p>
+                <p class="description">Specialist in geospatial analysis and shark habitat prediction. Mapping the future of ocean conservation.</p>
+                <div class="founder-links">
+                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Members Section -->
+<section class="team-section">
+    <h2>Our Team (13 Members)</h2>
+    <div class="members-grid">
+        <!-- Member 1 -->
+        <div class="member-card glass" onclick="showMemberProfile(1)">
+            <div class="member-image">
+                <img src="{% static 'images/member1.jpg' %}" alt="Member" />
+            </div>
+            <h4>Alex Chen</h4>
+            <p class="join-date">Joined: March 2024</p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="member-card glass" onclick="showMemberProfile(2)">
+            <div class="member-image">
+                <img src="{% static 'images/member2.jpg' %}" alt="Member" />
+            </div>
+            <h4>Priya Sharma</h4>
+            <p class="join-date">Joined: February 2024</p>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="member-card glass" onclick="showMemberProfile(3)">
+            <div class="member-image">
+                <img src="{% static 'images/member3.jpg' %}" alt="Member" />
+            </div>
+            <h4>Lucas Silva</h4>
+            <p class="join-date">Joined: January 2024</p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="member-card glass" onclick="showMemberProfile(4)">
+            <div class="member-image">
+                <img src="{% static 'images/member4.jpg' %}" alt="Member" />
+            </div>
+            <h4>Aisha Rahman</h4>
+            <p class="join-date">Joined: December 2023</p>
+        </div>
+
+        <!-- Member 5 -->
+        <div class="member-card glass" onclick="showMemberProfile(5)">
+            <div class="member-image">
+                <img src="{% static 'images/member5.jpg' %}" alt="Member" />
+            </div>
+            <h4>Oliver Schmidt</h4>
+            <p class="join-date">Joined: November 2023</p>
+        </div>
+
+        <!-- Member 6 -->
+        <div class="member-card glass" onclick="showMemberProfile(6)">
+            <div class="member-image">
+                <img src="{% static 'images/member6.jpg' %}" alt="Member" />
+            </div>
+            <h4>Nina Volkov</h4>
+            <p class="join-date">Joined: October 2023</p>
+        </div>
+
+        <!-- Member 7 -->
+        <div class="member-card glass" onclick="showMemberProfile(7)">
+            <div class="member-image">
+                <img src="{% static 'images/member7.jpg' %}" alt="Member" />
+            </div>
+            <h4>Marcus Thompson</h4>
+            <p class="join-date">Joined: September 2023</p>
+        </div>
+
+        <!-- Member 8 -->
+        <div class="member-card glass" onclick="showMemberProfile(8)">
+            <div class="member-image">
+                <img src="{% static 'images/member8.jpg' %}" alt="Member" />
+            </div>
+            <h4>Sofia Garcia</h4>
+            <p class="join-date">Joined: August 2023</p>
+        </div>
+
+        <!-- Member 9 -->
+        <div class="member-card glass" onclick="showMemberProfile(9)">
+            <div class="member-image">
+                <img src="{% static 'images/member9.jpg' %}" alt="Member" />
+            </div>
+            <h4>Kai Nakamura</h4>
+            <p class="join-date">Joined: July 2023</p>
+        </div>
+
+        <!-- Member 10 -->
+        <div class="member-card glass" onclick="showMemberProfile(10)">
+            <div class="member-image">
+                <img src="{% static 'images/member10.jpg' %}" alt="Member" />
+            </div>
+            <h4>Elena Rossi</h4>
+            <p class="join-date">Joined: June 2023</p>
+        </div>
+
+        <!-- Member 11 -->
+        <div class="member-card glass" onclick="showMemberProfile(11)">
+            <div class="member-image">
+                <img src="{% static 'images/member11.jpg' %}" alt="Member" />
+            </div>
+            <h4>Hassan Ahmed</h4>
+            <p class="join-date">Joined: May 2023</p>
+        </div>
+
+        <!-- Member 12 -->
+        <div class="member-card glass" onclick="showMemberProfile(12)">
+            <div class="member-image">
+                <img src="{% static 'images/member12.jpg' %}" alt="Member" />
+            </div>
+            <h4>Yuki Tanaka</h4>
+            <p class="join-date">Joined: April 2023</p>
+        </div>
+
+        <!-- Member 13 -->
+        <div class="member-card glass" onclick="showMemberProfile(13)">
+            <div class="member-image">
+                <img src="{% static 'images/member13.jpg' %}" alt="Member" />
+            </div>
+            <h4>Rebecca O'Brien</h4>
+            <p class="join-date">Joined: March 2023</p>
+        </div>
+    </div>
+</section>
+
+<!-- Member Profile Modal -->
+<div id="memberModal" class="modal glass-modal">
+    <div class="modal-content glass">
+        <span class="close-btn" onclick="closeMemberProfile()">&times;</span>
+        <div class="member-profile">
+            <img id="profileImage" src="" alt="Member Profile" />
+            <h2 id="profileName"></h2>
+            <p id="profileTitle" class="profile-title"></p>
+            <p id="profileDescription"></p>
+            <div class="profile-contributions">
+                <h4>Contributions:</h4>
+                <ul id="profileContributions"></ul>
+            </div>
+            <a id="profileLinkedIn" href="" target="_blank" class="btn btn-primary">LinkedIn Profile</a>
+        </div>
+    </div>
+</div>
+
+<!-- Become a Member Section -->
+<section class="become-member glass">
+    <h2>Join Our Mission</h2>
+    <p>Be part of SERRAFINS and contribute to marine conservation, research, and education. Whether you're a researcher, student, developer, or enthusiast, we welcome you.</p>
+    <div class="member-benefits">
+        <div class="benefit-item">
+            <h4>🦈 Collaborate</h4>
+            <p>Work on cutting-edge marine research projects</p>
+        </div>
+        <div class="benefit-item">
+            <h4>📚 Learn</h4>
+            <p>Access exclusive training and resources</p>
+        </div>
+        <div class="benefit-item">
+            <h4>🌍 Impact</h4>
+            <p>Make a real difference in ocean conservation</p>
+        </div>
+        <div class="benefit-item">
+            <h4>🤝 Network</h4>
+            <p>Connect with marine science professionals</p>
+        </div>
+    </div>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-large">Become a Member Today</a>
+</section>
+
+<script>
+const memberProfiles = {
+    1: {
+        name: "Alex Chen",
+        title: "Deep Sea Researcher",
+        description: "Marine biologist specializing in deep-sea shark species and their adaptation mechanisms. Published 12 papers on shark physiology.",
+        contributions: ["Researcher", "Diving Supervisor", "Data Analyst"],
+        linkedin: "https://linkedin.com/in/alexchen",
+        image: "{% static 'images/member1.jpg' %}"
+    },
+    2: {
+        name: "Priya Sharma",
+        title: "Conservation Manager",
+        description: "Dedicated to protecting endangered shark species. Leading habitat restoration projects across Southeast Asia.",
+        contributions: ["Conservationist", "Field Researcher", "Snorkeling Supervisor"],
+        linkedin: "https://linkedin.com/in/priyasharma",
+        image: "{% static 'images/member2.jpg' %}"
+    },
+    3: {
+        name: "Lucas Silva",
+        title: "Software Developer",
+        description: "Developing web platforms for marine data visualization. Newbie to marine science but passionate about tech for conservation.",
+        contributions: ["Developer", "Newbie", "Tech Lead"],
+        linkedin: "https://linkedin.com/in/lucassilva",
+        image: "{% static 'images/member3.jpg' %}"
+    },
+    4: {
+        name: "Aisha Rahman",
+        title: "Marine Educator",
+        description: "Creating engaging educational content about sharks and ocean ecosystems. Trained over 500 students in marine biology.",
+        contributions: ["Educator", "Snorkeling Supervisor", "Content Creator"],
+        linkedin: "https://linkedin.com/in/aisharahman",
+        image: "{% static 'images/member4.jpg' %}"
+    },
+    5: {
+        name: "Oliver Schmidt",
+        title: "GIS Specialist",
+        description: "Expert in geospatial mapping and habitat analysis. Building predictive models for shark migration patterns.",
+        contributions: ["GIS Expert", "Data Analyst", "Researcher"],
+        linkedin: "https://linkedin.com/in/oliverschmidt",
+        image: "{% static 'images/member5.jpg' %}"
+    },
+    6: {
+        name: "Nina Volkov",
+        title: "Diving Instructor",
+        description: "PADI certified diving instructor with 10+ years of experience. Leading underwater research expeditions.",
+        contributions: ["Diving Supervisor", "Instructor", "Field Researcher"],
+        linkedin: "https://linkedin.com/in/ninavolkov",
+        image: "{% static 'images/member6.jpg' %}"
+    },
+    7: {
+        name: "Marcus Thompson",
+        title: "Behavioral Scientist",
+        description: "Studying shark behavior and social dynamics. Newbie researcher eager to make marine discoveries.",
+        contributions: ["Researcher", "Newbie", "Behavioral Analyst"],
+        linkedin: "https://linkedin.com/in/marcusthompson",
+        image: "{% static 'images/member7.jpg' %}"
+    },
+    8: {
+        name: "Sofia Garcia",
+        title: "Environmental Advocate",
+        description: "Passionate about ocean policy and environmental conservation. Representing SERRAFINS in international forums.",
+        contributions: ["Advocate", "Policy Researcher", "Conservationist"],
+        linkedin: "https://linkedin.com/in/sofiagarcia",
+        image: "{% static 'images/member8.jpg' %}"
+    },
+    9: {
+        name: "Kai Nakamura",
+        title: "PhD Student",
+        description: "Researching shark genetics and evolutionary biology. Contributing to species identification projects.",
+        contributions: ["Researcher", "Snorkeling Supervisor", "Data Analyst"],
+        linkedin: "https://linkedin.com/in/kainakamura",
+        image: "{% static 'images/member9.jpg' %}"
+    },
+    10: {
+        name: "Elena Rossi",
+        title: "Social Media Manager",
+        description: "Sharing ocean conservation stories and raising awareness about marine biodiversity. Growing our community.",
+        contributions: ["Content Creator", "Outreach Specialist", "Newbie"],
+        linkedin: "https://linkedin.com/in/elenarossi",
+        image: "{% static 'images/member10.jpg' %}"
+    },
+    11: {
+        name: "Hassan Ahmed",
+        title: "Equipment Specialist",
+        description: "Managing diving and research equipment. Ensuring safety and functionality for all expeditions.",
+        contributions: ["Diving Supervisor", "Equipment Manager", "Safety Officer"],
+        linkedin: "https://linkedin.com/in/hassanahmed",
+        image: "{% static 'images/member11.jpg' %}"
+    },
+    12: {
+        name: "Yuki Tanaka",
+        title: "Data Scientist",
+        description: "Applying machine learning to marine ecology datasets. Building predictive models for conservation.",
+        contributions: ["Data Scientist", "Researcher", "AI Specialist"],
+        linkedin: "https://linkedin.com/in/yukitanaka",
+        image: "{% static 'images/member12.jpg' %}"
+    },
+    13: {
+        name: "Rebecca O'Brien",
+        title: "Marine Photographer",
+        description: "Capturing stunning underwater photography for research and education. Documenting shark behavior in natural habitats.",
+        contributions: ["Photographer", "Content Creator", "Field Researcher"],
+        linkedin: "https://linkedin.com/in/rebeccaobrien",
+        image: "{% static 'images/member13.jpg' %}"
+    }
+};
+
+function showMemberProfile(memberId) {
+    const profile = memberProfiles[memberId];
+    if (!profile) return;
+    
+    document.getElementById('profileImage').src = profile.image;
+    document.getElementById('profileName').textContent = profile.name;
+    document.getElementById('profileTitle').textContent = profile.title;
+    document.getElementById('profileDescription').textContent = profile.description;
+    document.getElementById('profileLinkedIn').href = profile.linkedin;
+    
+    const contributionsList = document.getElementById('profileContributions');
+    contributionsList.innerHTML = '';
+    profile.contributions.forEach(contrib => {
+        const li = document.createElement('li');
+        li.textContent = contrib;
+        contributionsList.appendChild(li);
+    });
+    
+    document.getElementById('memberModal').style.display = 'block';
+}
+
+function closeMemberProfile() {
+    document.getElementById('memberModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('memberModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

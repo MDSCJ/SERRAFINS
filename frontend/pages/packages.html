@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}SERRAFINS • Packages{% endblock %}
+{% block content %}
+<section class="packages-hero glass">
+    <h1>🦈 Adventure Packages</h1>
+    <p>Choose from our amazing marine experiences led by certified experts and registered marine science students.</p>
+</section>
+
+<section class="packages-grid">
+    <!-- Snorkeling Package -->
+    <article class="package-card glass tilt-card">
+        <img src="{% static 'images/snogling.webp' %}" alt="Snorkeling Experience" />
+        <div class="package-content">
+            <h2>Snorkeling Adventure</h2>
+            <p>Dive with snorkeling experts for better prices and the best experience with registered marine science students. Explore vibrant coral reefs and discover the beauty of underwater life.</p>
+            <ul class="features">
+                <li>Expert guided tours</li>
+                <li>Small group sizes</li>
+                <li>Equipment included</li>
+                <li>Marine biology lessons</li>
+            </ul>
+            <div class="price">Starting from $45/person</div>
+        </div>
+    </article>
+
+    <!-- Diving Package -->
+    <article class="package-card glass tilt-card">
+        <img src="{% static 'images/diving.jpg' %}" alt="Diving Experience" />
+        <div class="package-content">
+            <h2>Certified Diving Expedition</h2>
+            <p>Experience the thrill of deep diving with our professional diving instructors and marine science students. Perfect for beginners and advanced divers alike. Discover a world of wonder beneath the waves.</p>
+            <ul class="features">
+                <li>PADI certified instructors</li>
+                <li>Safety equipment provided</li>
+                <li>Personalized training</li>
+                <li>Marine science expertise</li>
+            </ul>
+            <div class="price">Starting from $89/person</div>
+        </div>
+    </article>
+</section>
+
+<section class="package-cta glass">
+    <h2>Ready to Book Your Adventure?</h2>
+    <p>Join us for an unforgettable marine experience. All packages include professional guidance and eco-friendly practices.</p>
+    <a href="{% url 'login' %}" class="btn btn-primary">Book Now</a>
+</section>
+{% endblock %}

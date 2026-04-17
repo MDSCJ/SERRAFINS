@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}SERRAFINS • Login{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}" />
+{% endblock %}
 {% block content %}
 <section class="auth-wrap">
     <form method="post" class="glass auth-card">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next_url }}" />
         <h2>Welcome back</h2>
         <p class="muted">Sign in to continue.</p>
 
@@ -14,6 +19,8 @@
         <input type="password" name="password" required />
 
         <button type="submit" class="btn btn-primary">Login</button>
+
+        <a href="{% url 'google_login_start' %}?next={{ next_url|urlencode }}" class="btn btn-soft auth-google-btn">Continue with Google</a>
     </form>
 </section>
 {% endblock %}

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}SERRAFINS • Home{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+{% endblock %}
 {% block content %}
 <section class="hero glass">
     <div class="hero-copy">
@@ -13,7 +16,11 @@
         </p>
         <div class="actions">
             <a href="{% url 'packages' %}" class="btn btn-primary">View Packages</a>
-            <a href="{% url 'login' %}" class="btn btn-soft">Sign In</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn btn-warm-cta">Go to Dashboard</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-warm-cta">Sign In</a>
+            {% endif %}
         </div>
     </div>
 
@@ -105,7 +112,6 @@
                 and interactive educational resources. Support marine science and conservation efforts.
             </p>
             <button onclick="openProjectsModal()" class="btn btn-primary">View Our Projects</button>
-            <a href="{% url 'shark_cnn' %}" class="btn btn-soft">Open Shark CNN Page</a>
         </div>
         <div class="experience-image">
             <img src="{% static 'images/cnn.jpeg' %}" alt="Marine Conservation" class="tilt-card" />
@@ -117,19 +123,19 @@
 <div id="projectsModal" class="modal glass-modal">
     <div class="modal-content glass">
         <span class="close-btn" onclick="closeProjectsModal()">&times;</span>
-        <h2>🦈 Open Source Projects</h2>
+        <h2>Open Source Projects</h2>
         <p>Explore our marine science initiatives and AI-powered conservation tools.</p>
         <div class="projects-grid">
             <button class="project-btn glass" data-url="{% url 'shark_key' %}" onclick="window.location.href=this.dataset.url">
-                <h3>📚 Shark Species Recognition Key</h3>
+                <h3>Shark Species Recognition Key</h3>
                 <p>Interactive guide to identify shark species by visual characteristics</p>
             </button>
             <button class="project-btn glass" data-url="{% url 'shark_cnn' %}" onclick="window.location.href=this.dataset.url">
-                <h3>🤖 Shark Species CNN Page</h3>
+                <h3>Shark Species CNN Page</h3>
                 <p>AI-powered image recognition using deep learning models (v1 running on-site)</p>
             </button>
             <button class="project-btn glass" onclick="window.location.href='#'">
-                <h3>🗺️ Shark Habitat Prediction GIS</h3>
+                <h3>Shark Habitat Prediction GIS</h3>
                 <p>Geographic analysis of shark habitats and migration patterns (Coming Soon)</p>
             </button>
         </div>

@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}SERRAFINS • Shark Species Recognition{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/shark.css' %}" />
+{% endblock %}
 {% block content %}
 <section class="shark-key-page">
-    <h1>🦈 Shark Species Recognition Key</h1>
+    <h1>Shark Species Recognition Key</h1>
     <p class="subtitle">Interactive guide to identify shark species by visual characteristics</p>
     
     <div class="key-grid">

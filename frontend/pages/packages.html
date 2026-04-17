@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}SERRAFINS • Packages{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/packages.css' %}" />
+{% endblock %}
 {% block content %}
 <section class="packages-hero glass">
-    <h1>🦈 Adventure Packages</h1>
+    <h1>Adventure Packages</h1>
     <p>Choose from our amazing marine experiences led by certified experts and registered marine science students.</p>
 </section>
 

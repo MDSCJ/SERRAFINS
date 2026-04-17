@@ -9,27 +9,63 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block extra_css %}{% endblock %}
     <script defer src="{% static 'javascript/main.js' %}"></script>
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <canvas id="liquid-canvas" aria-hidden="true"></canvas>
     <div class="ambient-layer"></div>
 
     <header class="glass nav-wrap">
-        <div class="nav-brand">🦈 SERRAFINS</div>
-        <nav>
+        <div class="nav-brand">SERRAFINS</div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="main-navigation" class="main-nav">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'packages' %}">Packages</a>
             <a href="{% url 'about' %}">About</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}">Dashboard</a>
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
+            {% if not user.is_authenticated %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register' %}">Register</a>
+            {% else %}
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <form method="post" action="{% url 'logout' %}" class="nav-logout-form" onsubmit="return confirm('Log out now?');">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-logout-btn">Logout</button>
+                </form>
+                <div class="mobile-auth-box glass">
+                    <div class="mobile-auth-user">
+                        <span class="mobile-auth-label">Signed in as</span>
+                        <span class="mobile-auth-username">{{ user.username }}</span>
+                        <span class="mobile-auth-credits">{{ auth_profile.credits }} credits</span>
+                    </div>
+                    <form method="post" action="{% url 'logout' %}" onsubmit="return confirm('Log out now?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-logout">Logout</button>
+                    </form>
+                </div>
             {% endif %}
         </nav>
     </header>
+
+    {% if user.is_authenticated and auth_profile %}
+        <aside class="auth-snippet glass">
+            <div class="auth-snippet-content">
+                <div class="auth-snippet-user">
+                    <span class="auth-snippet-label">Signed in as</span>
+                    <span class="auth-snippet-username">{{ user.username }}</span>
+                    <span class="auth-snippet-credits">{{ auth_profile.credits }} credits</span>
+                </div>
+                <form method="post" action="{% url 'logout' %}" onsubmit="return confirm('Log out now?');" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">Logout</button>
+                </form>
+            </div>
+        </aside>
+    {% endif %}
 
     <main class="page-shell">
         {% if messages %}

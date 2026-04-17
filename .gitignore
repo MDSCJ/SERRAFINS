@@ -23,6 +23,7 @@ env/
 .env
 .env.*
 !.env.example
+models/model_url.txt
 
 # OS
 .DS_Store

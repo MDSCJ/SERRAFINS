@@ -3,13 +3,16 @@
 Modern Django full-stack website with:
 - Authentication (`register`, `login`, `logout`, protected `dashboard`)
 - Aiven PostgreSQL-ready database configuration
+- MySQL database support for Django auth and credits
+- Google OAuth sign-in support via gitignored environment variables
+- Daily credits system with CNN usage gating
 - Frosted / liquid-glass visual theme (light blue + white)
 - Smooth ambient and 3D tilt animations
 - Secrets stored in `.env` (ignored by git)
 
 ## Stack
 - Django 5
-- PostgreSQL (Aiven) via env config
+- PostgreSQL or MySQL via env config
 - Vanilla CSS/JS for glassmorphism + animation
 
 ## Project Structure
@@ -50,6 +53,26 @@ Set:
 - `AIVEN_DB_USER`
 - `AIVEN_DB_PASSWORD`
 - `AIVEN_SSLMODE=require`
+
+### MySQL option
+Set in `.env`:
+- `DB_ENGINE=django.db.backends.mysql`
+- `MYSQL_DB_NAME`
+- `MYSQL_HOST`
+- `MYSQL_PORT`
+- `MYSQL_USER`
+- `MYSQL_PASSWORD`
+- `MYSQL_CHARSET=utf8mb4`
+
+### Google login + CNN secrets
+Set in `.env`:
+- `ADMIN_EMAIL=m.d.s.chamath@gmail.com`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/auth/google/callback/`
+- `CNN_MODEL_URL`
+
+The `.env` file is gitignored, so these values stay local.
 
 ## Security Notes
 - `.env` is excluded in `.gitignore`.

@@ -1,0 +1,133 @@
+.auth-wrap {
+  display: grid;
+  place-items: center;
+  padding: 2rem 0;
+  width: min(1100px, 90vw);
+  margin: 0 auto;
+}
+
+.auth-card {
+  width: min(520px, 96%);
+  border-radius: 20px;
+  padding: 1.4rem;
+  display: grid;
+  gap: 0.7rem;
+  color: var(--ink);
+}
+
+.auth-card h2 {
+  margin: 0;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  letter-spacing: 0.02em;
+}
+
+.auth-card .muted {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+}
+
+.auth-card label {
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.auth-card input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(145, 178, 204, 0.5);
+  padding: 0.7rem;
+  margin-bottom: 0.4rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.auth-card input::placeholder {
+  color: var(--muted);
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: rgba(77, 163, 245, 0.8);
+  box-shadow: 0 0 0 3px rgba(77, 163, 245, 0.18);
+}
+
+.auth-card .btn {
+  width: 100%;
+  min-height: 44px;
+}
+
+.auth-google-btn {
+  margin-top: 0.2rem;
+}
+
+.field-error {
+  margin: -0.1rem 0 0.25rem;
+  color: #d43b3b;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+html[data-theme="dark"] .auth-wrap {
+  color: #e7eef8;
+}
+
+html[data-theme="dark"] .auth-card {
+  background: linear-gradient(145deg, rgba(12, 18, 28, 0.92), rgba(24, 35, 50, 0.82));
+  border: 1px solid rgba(177, 210, 240, 0.16);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="dark"] .auth-card .muted,
+html[data-theme="dark"] .auth-card label {
+  color: #aebdd0;
+}
+
+html[data-theme="dark"] .auth-card input {
+  background: rgba(12, 18, 28, 0.88);
+  border-color: rgba(177, 210, 240, 0.18);
+  color: #eef5fb;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="dark"] .auth-card input::placeholder {
+  color: #7f91a8;
+}
+
+html[data-theme="dark"] .auth-card input:focus {
+  border-color: rgba(77, 163, 245, 0.9);
+  box-shadow: 0 0 0 3px rgba(77, 163, 245, 0.2);
+}
+
+html[data-theme="dark"] .auth-card .btn-primary {
+  box-shadow: 0 12px 24px rgba(42, 127, 217, 0.25);
+}
+
+html[data-theme="dark"] .auth-card .btn-soft {
+  background: rgba(255, 255, 255, 0.07);
+  color: #e7eef8;
+  border-color: rgba(177, 210, 240, 0.16);
+}
+
+html[data-theme="dark"] .auth-card .btn-soft:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+html[data-theme="dark"] .auth-google-btn {
+  border-color: rgba(177, 210, 240, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f8fc;
+}
+
+@media (max-width: 768px) {
+  .auth-card {
+    width: min(460px, 100%);
+    padding: 1.2rem;
+  }
+}

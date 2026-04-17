@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: serrafins-backend
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn serrafins_site.wsgi:application --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DEBUG
+        value: false
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - fromGroup: secrets
+  
+  - type: postgresql
+    name: serrafins-db
+    ipAllowList: []
+
+envVarGroups:
+  - name: secrets
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          name: serrafins-db
+          property: connectionString
+      - key: ADMIN_PASSWORD
+        value: qwertyuiop
+      - key: ADMIN_EMAIL
+        value: m.d.s.chamath@gmail.com
+      - key: CNN_MODEL_URL
+        value: ""  # Set this to your actual model URL
+      - key: ALLOWED_HOSTS
+        value: "*.onrender.com"

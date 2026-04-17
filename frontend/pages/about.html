@@ -1,386 +1,154 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}SERRAFINS • About Us{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/about.css' %}" />
+{% endblock %}
 {% block content %}
-<section class="about-hero glass">
-    <h1>About SERRAFINS</h1>
-    <p>Marine Science | Conservation | Education | Innovation</p>
-</section>
-
-<!-- Founders Section -->
-<section class="founders-section">
-    <h2>Meet Our Founders</h2>
-    <div class="founders-grid">
-        <!-- Founder 1 -->
-        <div class="founder-card glass tilt-card">
-            <div class="founder-image">
-                <img src="{% static 'images/founder1.jpg' %}" alt="Founder" />
+<section class="about-showcase glass">
+    <div class="about-showcase__copy">
+        <p class="about-kicker">Built by students. Driven by ocean impact.</p>
+        <h1>Meet the Founders of SERRAFINS</h1>
+        <p>
+            SERRAFINS is a student-built marine platform combining field science, AI, and modern web design.
+            Our founder team blends software engineering, marine science knowledge, and visual storytelling
+            to make ocean learning more immersive and practical.
+        </p>
+    </div>
+    <div class="about-showcase__meta">
+        <div class="about-showcase__dna" aria-hidden="true">
+            <div class="dna-3d-helix">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
             </div>
-            <div class="founder-content">
-                <h3>Dr. Sarah Reef</h3>
-                <p class="title">Marine Biologist & Founder</p>
-                <p class="description">Leading marine conservation initiatives with 15+ years of research in shark behavior and ocean ecosystems.</p>
-                <div class="founder-links">
-                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
-                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
+            <div class="dna-3d-box">
+                <div class="dna-3d-helix dna-3d-helix--compact">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
                 </div>
             </div>
         </div>
-
-        <!-- Founder 2 -->
-        <div class="founder-card glass tilt-card">
-            <div class="founder-image">
-                <img src="{% static 'images/founder2.jpg' %}" alt="Founder" />
-            </div>
-            <div class="founder-content">
-                <h3>Prof. James Ocean</h3>
-                <p class="title">AI & Data Science Lead</p>
-                <p class="description">Expert in machine learning applications for marine biology. Pioneering AI-driven conservation solutions.</p>
-                <div class="founder-links">
-                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
-                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Founder 3 -->
-        <div class="founder-card glass tilt-card">
-            <div class="founder-image">
-                <img src="{% static 'images/founder3.jpg' %}" alt="Founder" />
-            </div>
-            <div class="founder-content">
-                <h3>Emma Wave</h3>
-                <p class="title">Education & Outreach</p>
-                <p class="description">Dedicated to making marine science accessible. Developing interactive learning platforms for students worldwide.</p>
-                <div class="founder-links">
-                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
-                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Founder 4 -->
-        <div class="founder-card glass tilt-card">
-            <div class="founder-image">
-                <img src="{% static 'images/founder4.jpg' %}" alt="Founder" />
-            </div>
-            <div class="founder-content">
-                <h3>Dr. Marcus Tide</h3>
-                <p class="title">GIS & Habitat Mapping</p>
-                <p class="description">Specialist in geospatial analysis and shark habitat prediction. Mapping the future of ocean conservation.</p>
-                <div class="founder-links">
-                    <a href="https://github.com" target="_blank" class="link-btn github">GitHub</a>
-                    <a href="https://linkedin.com" target="_blank" class="link-btn linkedin">LinkedIn</a>
-                </div>
-            </div>
-        </div>
+        <span>4 Founders</span>
+        <span>3 Universities</span>
+        <span>1 Shared Mission</span>
     </div>
 </section>
 
-<!-- Team Members Section -->
-<section class="team-section">
-    <h2>Our Team (13 Members)</h2>
-    <div class="members-grid">
-        <!-- Member 1 -->
-        <div class="member-card glass" onclick="showMemberProfile(1)">
-            <div class="member-image">
-                <img src="{% static 'images/member1.jpg' %}" alt="Member" />
+<section class="founders-spotlight">
+    <div class="founders-spotlight__grid">
+        <article class="founder-profile glass tilt-card founder-profile--lead">
+            <div class="founder-media">
+                <div class="founder-photo-wrap">
+                    <img src="{% static 'images/developers/chamath.png' %}" alt="Chamath Jayasinghe" class="founder-photo" />
+                </div>
+                <div class="founder-links">
+                    <a href="https://github.com/MDSCJ" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chamath GitHub" title="GitHub">
+                        <svg class="founder-link__icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.7c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mdscj" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--linkedin" aria-label="Chamath LinkedIn" title="LinkedIn">
+                        <svg class="founder-link__icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.82v2.18h.05C11.9 9.12 13.4 8 15.8 8 20.17 8 21 10.88 21 14.63V24h-4v-8.45c0-2.02-.04-4.62-2.82-4.62-2.82 0-3.26 2.2-3.26 4.47V24h-4V8z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <h4>Alex Chen</h4>
-            <p class="join-date">Joined: March 2024</p>
-        </div>
+            <div class="founder-profile__body">
+                <h2>Chamath Jayasinghe</h2>
+                <p class="founder-role">Web Platform Architect • CNN Creator • Graphic Designer</p>
+                <p class="founder-bio">
+                    Chamath designed and developed the SERRAFINS web platform end-to-end and created the
+                    CNN-powered shark recognition workflow in the project. He led integration from the front-end
+                    experience to backend feature delivery, shaping the platform into a practical marine-tech system.
+                </p>
+                <p class="founder-edu">Undergraduate • Faculty of Engineering, University of Moratuwa</p>
+            </div>
+        </article>
 
-        <!-- Member 2 -->
-        <div class="member-card glass" onclick="showMemberProfile(2)">
-            <div class="member-image">
-                <img src="{% static 'images/member2.jpg' %}" alt="Member" />
+        <article class="founder-profile glass tilt-card founder-profile--pending">
+            <div class="founder-media">
+                <div class="founder-photo-wrap founder-photo-wrap--pending">
+                    <img src="{% static 'images/developers/indunil.jpg' %}" alt="Indunil Batuwangala" class="founder-photo" onerror="this.style.display='none'; this.parentElement.classList.add('founder-photo-wrap--missing');" />
+                    <span class="founder-photo-placeholder">Credentials Pending</span>
+                </div>
+                <div class="founder-links founder-links--pending">
+                    <span class="founder-link founder-link--muted">LinkedIn: pending</span>
+                    <span class="founder-link founder-link--muted">GitHub: pending</span>
+                </div>
             </div>
-            <h4>Priya Sharma</h4>
-            <p class="join-date">Joined: February 2024</p>
-        </div>
+            <div class="founder-profile__body">
+                <h2>Indunil Batuwangala</h2>
+                <p class="founder-role">Founder • Profile Update In Progress</p>
+                <p class="founder-bio">
+                    Indunil is a founding contributor of SERRAFINS.
+                    Detailed bio, role track, and social credentials will be added once finalized information is shared.
+                </p>
+                <p class="founder-edu">Academic details will be published with full credentials</p>
+            </div>
+        </article>
 
-        <!-- Member 3 -->
-        <div class="member-card glass" onclick="showMemberProfile(3)">
-            <div class="member-image">
-                <img src="{% static 'images/member3.jpg' %}" alt="Member" />
+        <article class="founder-profile glass tilt-card">
+            <div class="founder-media">
+                <div class="founder-photo-wrap">
+                    <img src="{% static 'images/developers/chenuka.jpg' %}" alt="Chenuka Wijesundara" class="founder-photo" />
+                </div>
+                <div class="founder-links">
+                    <a href="https://github.com/sylvie-wi" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chenuka GitHub" title="GitHub">
+                        <svg class="founder-link__icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.7c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/chenuka-w" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--linkedin" aria-label="Chenuka LinkedIn" title="LinkedIn">
+                        <svg class="founder-link__icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.82v2.18h.05C11.9 9.12 13.4 8 15.8 8 20.17 8 21 10.88 21 14.63V24h-4v-8.45c0-2.02-.04-4.62-2.82-4.62-2.82 0-3.26 2.2-3.26 4.47V24h-4V8z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <h4>Lucas Silva</h4>
-            <p class="join-date">Joined: January 2024</p>
-        </div>
+            <div class="founder-profile__body">
+                <h2>Chenuka Wijesundara</h2>
+                <p class="founder-role">3D Animation & Software Designer</p>
+                <p class="founder-bio">
+                    Chenuka shaped SERRAFINS visual motion language and 3D experience direction while
+                    contributing to software design decisions that improved storytelling and interaction quality.
+                </p>
+                <p class="founder-edu">Undergraduate • Faculty of Engineering, University of Peradeniya</p>
+            </div>
+        </article>
 
-        <!-- Member 4 -->
-        <div class="member-card glass" onclick="showMemberProfile(4)">
-            <div class="member-image">
-                <img src="{% static 'images/member4.jpg' %}" alt="Member" />
+        <article class="founder-profile glass tilt-card">
+            <div class="founder-media">
+                <div class="founder-photo-wrap">
+                    <img src="{% static 'images/developers/chanuga.png' %}" alt="Chanuga Denuk Thihagoda Gamage" class="founder-photo" />
+                </div>
+                <div class="founder-links">
+                    <a href="https://github.com/Denuk0Chanuga" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chanuga GitHub" title="GitHub">
+                        <svg class="founder-link__icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.7c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/chanuga-denuk-gamage" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--linkedin" aria-label="Chanuga LinkedIn" title="LinkedIn">
+                        <svg class="founder-link__icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.82v2.18h.05C11.9 9.12 13.4 8 15.8 8 20.17 8 21 10.88 21 14.63V24h-4v-8.45c0-2.02-.04-4.62-2.82-4.62-2.82 0-3.26 2.2-3.26 4.47V24h-4V8z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <h4>Aisha Rahman</h4>
-            <p class="join-date">Joined: December 2023</p>
-        </div>
-
-        <!-- Member 5 -->
-        <div class="member-card glass" onclick="showMemberProfile(5)">
-            <div class="member-image">
-                <img src="{% static 'images/member5.jpg' %}" alt="Member" />
+            <div class="founder-profile__body">
+                <h2>Chanuga Denuk Thihagoda Gamage</h2>
+                <p class="founder-role">Marine Science Contributor</p>
+                <p class="founder-bio">
+                    Chanuga contributes fisheries and marine science depth to SERRAFINS, grounding
+                    project features with practical ecological context and domain relevance.
+                </p>
+                <p class="founder-edu">B.Sc. (Hons) Fisheries and Marine Science (Undergraduate) • University of Ruhuna</p>
             </div>
-            <h4>Oliver Schmidt</h4>
-            <p class="join-date">Joined: November 2023</p>
-        </div>
-
-        <!-- Member 6 -->
-        <div class="member-card glass" onclick="showMemberProfile(6)">
-            <div class="member-image">
-                <img src="{% static 'images/member6.jpg' %}" alt="Member" />
-            </div>
-            <h4>Nina Volkov</h4>
-            <p class="join-date">Joined: October 2023</p>
-        </div>
-
-        <!-- Member 7 -->
-        <div class="member-card glass" onclick="showMemberProfile(7)">
-            <div class="member-image">
-                <img src="{% static 'images/member7.jpg' %}" alt="Member" />
-            </div>
-            <h4>Marcus Thompson</h4>
-            <p class="join-date">Joined: September 2023</p>
-        </div>
-
-        <!-- Member 8 -->
-        <div class="member-card glass" onclick="showMemberProfile(8)">
-            <div class="member-image">
-                <img src="{% static 'images/member8.jpg' %}" alt="Member" />
-            </div>
-            <h4>Sofia Garcia</h4>
-            <p class="join-date">Joined: August 2023</p>
-        </div>
-
-        <!-- Member 9 -->
-        <div class="member-card glass" onclick="showMemberProfile(9)">
-            <div class="member-image">
-                <img src="{% static 'images/member9.jpg' %}" alt="Member" />
-            </div>
-            <h4>Kai Nakamura</h4>
-            <p class="join-date">Joined: July 2023</p>
-        </div>
-
-        <!-- Member 10 -->
-        <div class="member-card glass" onclick="showMemberProfile(10)">
-            <div class="member-image">
-                <img src="{% static 'images/member10.jpg' %}" alt="Member" />
-            </div>
-            <h4>Elena Rossi</h4>
-            <p class="join-date">Joined: June 2023</p>
-        </div>
-
-        <!-- Member 11 -->
-        <div class="member-card glass" onclick="showMemberProfile(11)">
-            <div class="member-image">
-                <img src="{% static 'images/member11.jpg' %}" alt="Member" />
-            </div>
-            <h4>Hassan Ahmed</h4>
-            <p class="join-date">Joined: May 2023</p>
-        </div>
-
-        <!-- Member 12 -->
-        <div class="member-card glass" onclick="showMemberProfile(12)">
-            <div class="member-image">
-                <img src="{% static 'images/member12.jpg' %}" alt="Member" />
-            </div>
-            <h4>Yuki Tanaka</h4>
-            <p class="join-date">Joined: April 2023</p>
-        </div>
-
-        <!-- Member 13 -->
-        <div class="member-card glass" onclick="showMemberProfile(13)">
-            <div class="member-image">
-                <img src="{% static 'images/member13.jpg' %}" alt="Member" />
-            </div>
-            <h4>Rebecca O'Brien</h4>
-            <p class="join-date">Joined: March 2023</p>
-        </div>
+        </article>
     </div>
 </section>
-
-<!-- Member Profile Modal -->
-<div id="memberModal" class="modal glass-modal">
-    <div class="modal-content glass">
-        <span class="close-btn" onclick="closeMemberProfile()">&times;</span>
-        <div class="member-profile">
-            <img id="profileImage" src="" alt="Member Profile" />
-            <h2 id="profileName"></h2>
-            <p id="profileTitle" class="profile-title"></p>
-            <p id="profileDescription"></p>
-            <div class="profile-contributions">
-                <h4>Contributions:</h4>
-                <ul id="profileContributions"></ul>
-            </div>
-            <a id="profileLinkedIn" href="" target="_blank" class="btn btn-primary">LinkedIn Profile</a>
-        </div>
-    </div>
-</div>
-
-<!-- Become a Member Section -->
-<section class="become-member glass">
-    <h2>Join Our Mission</h2>
-    <p>Be part of SERRAFINS and contribute to marine conservation, research, and education. Whether you're a researcher, student, developer, or enthusiast, we welcome you.</p>
-    <div class="member-benefits">
-        <div class="benefit-item">
-            <h4>🦈 Collaborate</h4>
-            <p>Work on cutting-edge marine research projects</p>
-        </div>
-        <div class="benefit-item">
-            <h4>📚 Learn</h4>
-            <p>Access exclusive training and resources</p>
-        </div>
-        <div class="benefit-item">
-            <h4>🌍 Impact</h4>
-            <p>Make a real difference in ocean conservation</p>
-        </div>
-        <div class="benefit-item">
-            <h4>🤝 Network</h4>
-            <p>Connect with marine science professionals</p>
-        </div>
-    </div>
-    <a href="{% url 'register' %}" class="btn btn-primary btn-large">Become a Member Today</a>
-</section>
-
-<script>
-const memberProfiles = {
-    1: {
-        name: "Alex Chen",
-        title: "Deep Sea Researcher",
-        description: "Marine biologist specializing in deep-sea shark species and their adaptation mechanisms. Published 12 papers on shark physiology.",
-        contributions: ["Researcher", "Diving Supervisor", "Data Analyst"],
-        linkedin: "https://linkedin.com/in/alexchen",
-        image: "{% static 'images/member1.jpg' %}"
-    },
-    2: {
-        name: "Priya Sharma",
-        title: "Conservation Manager",
-        description: "Dedicated to protecting endangered shark species. Leading habitat restoration projects across Southeast Asia.",
-        contributions: ["Conservationist", "Field Researcher", "Snorkeling Supervisor"],
-        linkedin: "https://linkedin.com/in/priyasharma",
-        image: "{% static 'images/member2.jpg' %}"
-    },
-    3: {
-        name: "Lucas Silva",
-        title: "Software Developer",
-        description: "Developing web platforms for marine data visualization. Newbie to marine science but passionate about tech for conservation.",
-        contributions: ["Developer", "Newbie", "Tech Lead"],
-        linkedin: "https://linkedin.com/in/lucassilva",
-        image: "{% static 'images/member3.jpg' %}"
-    },
-    4: {
-        name: "Aisha Rahman",
-        title: "Marine Educator",
-        description: "Creating engaging educational content about sharks and ocean ecosystems. Trained over 500 students in marine biology.",
-        contributions: ["Educator", "Snorkeling Supervisor", "Content Creator"],
-        linkedin: "https://linkedin.com/in/aisharahman",
-        image: "{% static 'images/member4.jpg' %}"
-    },
-    5: {
-        name: "Oliver Schmidt",
-        title: "GIS Specialist",
-        description: "Expert in geospatial mapping and habitat analysis. Building predictive models for shark migration patterns.",
-        contributions: ["GIS Expert", "Data Analyst", "Researcher"],
-        linkedin: "https://linkedin.com/in/oliverschmidt",
-        image: "{% static 'images/member5.jpg' %}"
-    },
-    6: {
-        name: "Nina Volkov",
-        title: "Diving Instructor",
-        description: "PADI certified diving instructor with 10+ years of experience. Leading underwater research expeditions.",
-        contributions: ["Diving Supervisor", "Instructor", "Field Researcher"],
-        linkedin: "https://linkedin.com/in/ninavolkov",
-        image: "{% static 'images/member6.jpg' %}"
-    },
-    7: {
-        name: "Marcus Thompson",
-        title: "Behavioral Scientist",
-        description: "Studying shark behavior and social dynamics. Newbie researcher eager to make marine discoveries.",
-        contributions: ["Researcher", "Newbie", "Behavioral Analyst"],
-        linkedin: "https://linkedin.com/in/marcusthompson",
-        image: "{% static 'images/member7.jpg' %}"
-    },
-    8: {
-        name: "Sofia Garcia",
-        title: "Environmental Advocate",
-        description: "Passionate about ocean policy and environmental conservation. Representing SERRAFINS in international forums.",
-        contributions: ["Advocate", "Policy Researcher", "Conservationist"],
-        linkedin: "https://linkedin.com/in/sofiagarcia",
-        image: "{% static 'images/member8.jpg' %}"
-    },
-    9: {
-        name: "Kai Nakamura",
-        title: "PhD Student",
-        description: "Researching shark genetics and evolutionary biology. Contributing to species identification projects.",
-        contributions: ["Researcher", "Snorkeling Supervisor", "Data Analyst"],
-        linkedin: "https://linkedin.com/in/kainakamura",
-        image: "{% static 'images/member9.jpg' %}"
-    },
-    10: {
-        name: "Elena Rossi",
-        title: "Social Media Manager",
-        description: "Sharing ocean conservation stories and raising awareness about marine biodiversity. Growing our community.",
-        contributions: ["Content Creator", "Outreach Specialist", "Newbie"],
-        linkedin: "https://linkedin.com/in/elenarossi",
-        image: "{% static 'images/member10.jpg' %}"
-    },
-    11: {
-        name: "Hassan Ahmed",
-        title: "Equipment Specialist",
-        description: "Managing diving and research equipment. Ensuring safety and functionality for all expeditions.",
-        contributions: ["Diving Supervisor", "Equipment Manager", "Safety Officer"],
-        linkedin: "https://linkedin.com/in/hassanahmed",
-        image: "{% static 'images/member11.jpg' %}"
-    },
-    12: {
-        name: "Yuki Tanaka",
-        title: "Data Scientist",
-        description: "Applying machine learning to marine ecology datasets. Building predictive models for conservation.",
-        contributions: ["Data Scientist", "Researcher", "AI Specialist"],
-        linkedin: "https://linkedin.com/in/yukitanaka",
-        image: "{% static 'images/member12.jpg' %}"
-    },
-    13: {
-        name: "Rebecca O'Brien",
-        title: "Marine Photographer",
-        description: "Capturing stunning underwater photography for research and education. Documenting shark behavior in natural habitats.",
-        contributions: ["Photographer", "Content Creator", "Field Researcher"],
-        linkedin: "https://linkedin.com/in/rebeccaobrien",
-        image: "{% static 'images/member13.jpg' %}"
-    }
-};
-
-function showMemberProfile(memberId) {
-    const profile = memberProfiles[memberId];
-    if (!profile) return;
-    
-    document.getElementById('profileImage').src = profile.image;
-    document.getElementById('profileName').textContent = profile.name;
-    document.getElementById('profileTitle').textContent = profile.title;
-    document.getElementById('profileDescription').textContent = profile.description;
-    document.getElementById('profileLinkedIn').href = profile.linkedin;
-    
-    const contributionsList = document.getElementById('profileContributions');
-    contributionsList.innerHTML = '';
-    profile.contributions.forEach(contrib => {
-        const li = document.createElement('li');
-        li.textContent = contrib;
-        contributionsList.appendChild(li);
-    });
-    
-    document.getElementById('memberModal').style.display = 'block';
-}
-
-function closeMemberProfile() {
-    document.getElementById('memberModal').style.display = 'none';
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('memberModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-}
-</script>
 {% endblock %}

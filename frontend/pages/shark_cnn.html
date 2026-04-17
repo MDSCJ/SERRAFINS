@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}SERRAFINS • Shark Species CNN{% endblock %}
+{% block body_class %}shark-cnn-view{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/shark.css' %}" />
+{% endblock %}
 {% block content %}
 <section class="shark-cnn-page">
-    <h1>🤖 Shark Species Recognition CNN</h1>
+    <h1>Shark Species Recognition CNN</h1>
     <p class="subtitle">AI-powered image recognition using deep learning models</p>
 
+    {% if user.is_authenticated %}
     <aside class="confidence-float glass" aria-label="Confidence threshold control">
         <p class="confidence-title">Confidence Line</p>
         <input
@@ -21,6 +26,17 @@
     </aside>
     
     <div class="cnn-container glass">
+        <div class="cnn-auth-row glass">
+            <div class="cnn-auth-meta">
+                <span class="cnn-auth-user">Signed in as {{ user.username }}</span>
+                <span class="cnn-auth-credits" id="cnnCurrentCredits">Credits: {{ auth_profile.credits }}</span>
+            </div>
+            <form method="post" action="{% url 'logout' %}" onsubmit="return confirm('Log out now?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-logout">Logout</button>
+            </form>
+        </div>
+
         <div class="cnn-info">
             <h2>Model Information</h2>
             <ul>
@@ -34,12 +50,24 @@
 
         <div class="cnn-upload glass">
             <h3>Upload Shark Image</h3>
-            <form id="cnnForm" enctype="multipart/form-data">
+            <div id="modelBootstrap" class="model-bootstrap{% if model_available %} hidden{% endif %}">
+                <p class="bootstrap-title">No local model found.</p>
+                <button type="button" id="loadModelBtn" class="btn btn-primary">Click to load our CNN</button>
+                <div id="downloadProgress" class="download-progress hidden" aria-live="polite">
+                    <div class="download-progress-track">
+                        <div id="downloadProgressFill" class="download-progress-fill"></div>
+                    </div>
+                    <p id="downloadStatusText" class="download-status">Downloading model...</p>
+                </div>
+                <p class="small">Model URL is read from a local gitignored file.</p>
+            </div>
+
+            <form id="cnnForm" enctype="multipart/form-data"{% if not model_available %} style="display:none;"{% endif %}>
                 {% csrf_token %}
                 <div class="upload-area" id="uploadArea">
                     <input type="file" id="imageInput" name="image" accept="image/*" hidden />
                     <label for="imageInput" class="upload-label">
-                        <p>🖼️ Click to upload or drag and drop</p>
+                        <p>Click to upload or drag and drop</p>
                         <p class="small">PNG, JPG, or WebP (Max 5MB)</p>
                     </label>
                     <div class="upload-thumb" id="uploadThumb" style="display: none;" aria-live="polite">
@@ -66,7 +94,7 @@
                 </div>
                 <div class="roadmap-item pending">
                     <span class="version-badge">v2.0</span>
-                    <p>Planned training on 27,000 images with expanded accuracy</p>
+                    <p>Planned training on 32,000+ images with expanded accuracy</p>
                 </div>
                 <div class="roadmap-item pending">
                     <span class="version-badge">v2.1</span>
@@ -80,13 +108,114 @@
 <script>
 // Handle file upload
 const uploadArea = document.getElementById('uploadArea');
+const cnnForm = document.getElementById('cnnForm');
+const modelBootstrap = document.getElementById('modelBootstrap');
+const loadModelBtn = document.getElementById('loadModelBtn');
+const downloadProgress = document.getElementById('downloadProgress');
+const downloadProgressFill = document.getElementById('downloadProgressFill');
+const downloadStatusText = document.getElementById('downloadStatusText');
+const modelInitiallyAvailable = "{{ model_available|yesno:'true,false' }}" === 'true';
 
 const confidenceSlider = document.getElementById('confidenceSlider');
 const confidenceValue = document.getElementById('confidenceValue');
 const imageInput = document.getElementById('imageInput');
 const uploadThumb = document.getElementById('uploadThumb');
 const uploadThumbImage = document.getElementById('uploadThumbImage');
+const cnnCreditsLabel = document.getElementById('cnnCurrentCredits');
 let overlayEnabled = true;
+const cnnAnalysisCost = 10;
+
+function updateCreditsUI(credits) {
+    if (!Number.isFinite(Number(credits))) {
+        return;
+    }
+
+    const parsedCredits = Math.max(0, Math.floor(Number(credits)));
+    const topSnippetCredits = document.querySelector('.auth-snippet-credits');
+    const cnnCredits = document.getElementById('cnnCurrentCredits');
+    const dashboardClockCredits = document.querySelector('.clock-credits');
+
+    if (topSnippetCredits) {
+        topSnippetCredits.textContent = `${parsedCredits} credits`;
+    }
+    if (cnnCredits) {
+        cnnCredits.textContent = `Credits: ${parsedCredits}`;
+    }
+    if (dashboardClockCredits) {
+        dashboardClockCredits.textContent = `AI Credits: ${parsedCredits}`;
+    }
+}
+
+function getCsrfToken() {
+    const csrfInput = document.querySelector('#cnnForm input[name="csrfmiddlewaretoken"]');
+    return csrfInput ? csrfInput.value : '';
+}
+
+function setModelReady(ready) {
+    if (ready) {
+        modelBootstrap.classList.add('hidden');
+        cnnForm.style.display = '';
+        return;
+    }
+
+    modelBootstrap.classList.remove('hidden');
+    cnnForm.style.display = 'none';
+}
+
+function startProgressAnimation() {
+    downloadProgress.classList.remove('hidden');
+    downloadProgressFill.style.width = '0%';
+    let progress = 0;
+    const timer = setInterval(() => {
+        progress = Math.min(progress + Math.random() * 10, 92);
+        downloadProgressFill.style.width = `${progress.toFixed(0)}%`;
+    }, 220);
+    return timer;
+}
+
+function stopProgressAnimation(timer) {
+    clearInterval(timer);
+    downloadProgressFill.style.width = '100%';
+}
+
+if (loadModelBtn) {
+    loadModelBtn.addEventListener('click', async () => {
+        loadModelBtn.disabled = true;
+        downloadStatusText.textContent = 'Downloading model...';
+        const progressTimer = startProgressAnimation();
+
+        try {
+            const response = await fetch("{% url 'shark_cnn_load_model' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCsrfToken(),
+                },
+            });
+
+            const data = await response.json();
+            stopProgressAnimation(progressTimer);
+
+            if (!data.success) {
+                downloadStatusText.textContent = data.error || 'Download failed.';
+                loadModelBtn.disabled = false;
+                return;
+            }
+
+            downloadStatusText.textContent = 'Model ready. Prediction UI unlocked.';
+            setTimeout(() => {
+                setModelReady(true);
+                downloadProgress.classList.add('hidden');
+                loadModelBtn.disabled = false;
+            }, 450);
+        } catch (error) {
+            clearInterval(progressTimer);
+            downloadStatusText.textContent = `Download failed: ${error.message}`;
+            loadModelBtn.disabled = false;
+        }
+    });
+}
+
+setModelReady(modelInitiallyAvailable);
 
 uploadArea.addEventListener('click', (event) => {
     // Label already opens the file picker via the "for" attribute; skip to avoid double-open.
@@ -147,16 +276,21 @@ uploadArea.addEventListener('drop', (e) => {
 });
 
 // Form submission
-document.getElementById('cnnForm').addEventListener('submit', async (e) => {
+cnnForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const formData = new FormData(document.getElementById('cnnForm'));
+    const formData = new FormData(cnnForm);
     formData.set('confidence_threshold', confidenceSlider.value);
     const file = imageInput.files[0];
     
     if (!file) {
         alert('Please select an image');
         return;
+    }
+
+    const creditsBeforeAnalysis = cnnCreditsLabel ? Number.parseInt(cnnCreditsLabel.textContent.replace(/\D+/g, ''), 10) : NaN;
+    if (Number.isFinite(creditsBeforeAnalysis)) {
+        updateCreditsUI(Math.max(0, creditsBeforeAnalysis - cnnAnalysisCost));
     }
 
     document.getElementById('loadingSpinner').style.display = 'block';
@@ -169,13 +303,27 @@ document.getElementById('cnnForm').addEventListener('submit', async (e) => {
         });
 
         const data = await response.json();
+        if (data.success && typeof data.credits === 'number') {
+            updateCreditsUI(data.credits);
+        } else if (Number.isFinite(creditsBeforeAnalysis)) {
+            updateCreditsUI(creditsBeforeAnalysis);
+        }
         
         if (data.success) {
             displayResults(data);
+        } else if (data.model_missing) {
+            setModelReady(false);
+            downloadStatusText.textContent = 'Model missing. Click to load our CNN.';
         } else {
+            if (Number.isFinite(creditsBeforeAnalysis)) {
+                updateCreditsUI(creditsBeforeAnalysis);
+            }
             alert('Error: ' + data.error);
         }
     } catch (error) {
+        if (Number.isFinite(creditsBeforeAnalysis)) {
+            updateCreditsUI(creditsBeforeAnalysis);
+        }
         alert('An error occurred: ' + error.message);
     } finally {
         document.getElementById('loadingSpinner').style.display = 'none';
@@ -197,29 +345,35 @@ function displayResults(data) {
                 <div class="result-media">
                     <img id="resultPreviewImage" src="${e.target.result}" alt="Uploaded shark image" />
                     <canvas id="resultOverlayCanvas" class="result-overlay" aria-hidden="true" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></canvas>
+                    <button 
+                        type="button" 
+                        id="overlayToggle"
+                        class="btn btn-soft overlay-toggle"
+                        aria-label="Toggle highest-confidence shark box overlay inside the image"
+                        aria-pressed="true"
+                    >Overlay: On</button>
                 </div>
-                <button type="button" id="toggleOverlayBtn" class="btn btn-soft overlay-toggle" title="Toggle highest-confidence shark box">
-                    Shark Box: ON
-                </button>
             </div>
         `;
 
         const previewImage = document.getElementById('resultPreviewImage');
         const overlayCanvas = document.getElementById('resultOverlayCanvas');
-        const toggleButton = document.getElementById('toggleOverlayBtn');
+        const overlayToggle = document.getElementById('overlayToggle');
 
         const drawOverlay = () => drawHighestConfidenceBox(data, previewImage, overlayCanvas, overlayEnabled);
 
         previewImage.addEventListener('load', drawOverlay, { once: true });
 
         if (!hasDrawableBox(data)) {
-            toggleButton.disabled = true;
-            toggleButton.textContent = 'Shark Box: N/A';
+            overlayToggle.disabled = true;
+            overlayToggle.textContent = 'No box available';
         }
 
-        toggleButton.addEventListener('click', () => {
+        overlayToggle.addEventListener('click', () => {
             overlayEnabled = !overlayEnabled;
-            toggleButton.textContent = `Shark Box: ${overlayEnabled ? 'ON' : 'OFF'}`;
+            overlayToggle.setAttribute('aria-pressed', overlayEnabled ? 'true' : 'false');
+            overlayToggle.classList.toggle('overlay-toggle--off', !overlayEnabled);
+            overlayToggle.textContent = overlayEnabled ? 'Overlay: On' : 'Overlay: Off';
             drawOverlay();
         });
 
@@ -312,5 +466,40 @@ function drawHighestConfidenceBox(data, imageElement, canvasElement, shouldShow)
     context.fillStyle = '#f1fbff';
     context.fillText(label, labelX, labelY - 3);
 }
+
 </script>
+    {% else %}
+    <div class="cnn-login-gate glass">
+        <div class="cnn-login-gate__hero">
+            <div class="cnn-login-gate__eyebrow">Account required</div>
+            <h2>Unlock Shark Species CNN</h2>
+            <p>Sign in to run image analysis, keep track of credit usage, and keep the model access clean for everyone.</p>
+        </div>
+
+        <div class="cnn-login-gate__highlights">
+            <div class="cnn-highlight-card cnn-highlight-card--daily">
+                <span class="cnn-highlight-card__label">Daily credits</span>
+                <strong>100</strong>
+                <p>Reset every day for all users.</p>
+            </div>
+            <div class="cnn-highlight-card cnn-highlight-card--usage">
+                <span class="cnn-highlight-card__label">Per image</span>
+                <strong>10</strong>
+                <p>Charged only when you analyze a shark image.</p>
+            </div>
+        </div>
+
+        <div class="cnn-login-gate__footer">
+            <div class="cnn-login-gate__note">
+                <span class="cnn-login-gate__note-dot"></span>
+                <span>Fast sign-in, private usage tracking, instant CNN access.</span>
+            </div>
+            <div class="actions">
+                <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="btn btn-primary">Go to Login</a>
+                <a href="{% url 'google_login_start' %}?next={{ request.path|urlencode }}" class="btn btn-soft auth-google-btn">Continue with Google</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
 {% endblock %}

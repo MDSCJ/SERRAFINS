@@ -5,6 +5,20 @@
 <section class="shark-cnn-page">
     <h1>🤖 Shark Species Recognition CNN</h1>
     <p class="subtitle">AI-powered image recognition using deep learning models</p>
+
+    <aside class="confidence-float glass" aria-label="Confidence threshold control">
+        <p class="confidence-title">Confidence Line</p>
+        <input
+            type="range"
+            id="confidenceSlider"
+            min="0.05"
+            max="0.95"
+            step="0.05"
+            value="0.25"
+            aria-label="Detection confidence threshold"
+        />
+        <p class="confidence-value"><span id="confidenceValue">25%</span> minimum</p>
+    </aside>
     
     <div class="cnn-container glass">
         <div class="cnn-info">
@@ -28,6 +42,9 @@
                         <p>🖼️ Click to upload or drag and drop</p>
                         <p class="small">PNG, JPG, or WebP (Max 5MB)</p>
                     </label>
+                    <div class="upload-thumb" id="uploadThumb" style="display: none;" aria-live="polite">
+                        <img id="uploadThumbImage" alt="Selected image preview" />
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Analyze Image</button>
             </form>
@@ -40,23 +57,16 @@
             <div id="predictions" class="predictions-list"></div>
         </div>
 
-        <div class="model-location">
-            <h3>📍 Model File Location</h3>
-            <p><strong>Place your .pt PyTorch model file here:</strong></p>
-            <code class="code-block">/home/chamath/python/SERRAFINS/models/shark_species_cnn.pt</code>
-            <p class="info-text">Create the <code>models</code> folder if it doesn't exist. The model should be compatible with PyTorch 2.0+</p>
-        </div>
-
         <div class="version-info">
             <h3>Version Roadmap</h3>
             <div class="roadmap">
                 <div class="roadmap-item completed">
                     <span class="version-badge">v1.0</span>
-                    <p>On-site CNN inference with PyTorch</p>
+                    <p>Trained on 8,000 images with on-site CNN inference</p>
                 </div>
                 <div class="roadmap-item pending">
                     <span class="version-badge">v2.0</span>
-                    <p>Real-time camera feed processing</p>
+                    <p>Planned training on 27,000 images with expanded accuracy</p>
                 </div>
                 <div class="roadmap-item pending">
                     <span class="version-badge">v2.1</span>
@@ -69,29 +79,70 @@
 
 <script>
 // Handle file upload
-document.getElementById('uploadArea').addEventListener('click', () => {
-    document.getElementById('imageInput').click();
+const uploadArea = document.getElementById('uploadArea');
+
+const confidenceSlider = document.getElementById('confidenceSlider');
+const confidenceValue = document.getElementById('confidenceValue');
+const imageInput = document.getElementById('imageInput');
+const uploadThumb = document.getElementById('uploadThumb');
+const uploadThumbImage = document.getElementById('uploadThumbImage');
+let overlayEnabled = true;
+
+uploadArea.addEventListener('click', (event) => {
+    // Label already opens the file picker via the "for" attribute; skip to avoid double-open.
+    if (event.target.closest('label') || event.target === imageInput) {
+        return;
+    }
+    imageInput.click();
+});
+
+function updateConfidenceLabel() {
+    confidenceValue.textContent = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
+}
+
+confidenceSlider.addEventListener('input', updateConfidenceLabel);
+updateConfidenceLabel();
+
+function renderUploadPreview(file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        uploadThumbImage.src = event.target.result;
+        uploadThumb.style.display = 'flex';
+        uploadThumb.classList.remove('thumb-pop');
+        // Restart animation for each newly selected image.
+        void uploadThumb.offsetWidth;
+        uploadThumb.classList.add('thumb-pop');
+    };
+    reader.readAsDataURL(file);
+}
+
+imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if (file) {
+        renderUploadPreview(file);
+    }
 });
 
 // Drag and drop
-document.getElementById('uploadArea').addEventListener('dragover', (e) => {
+uploadArea.addEventListener('dragover', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    document.getElementById('uploadArea').style.opacity = '0.7';
+    uploadArea.style.opacity = '0.7';
 });
 
-document.getElementById('uploadArea').addEventListener('dragleave', () => {
-    document.getElementById('uploadArea').style.opacity = '1';
+uploadArea.addEventListener('dragleave', () => {
+    uploadArea.style.opacity = '1';
 });
 
-document.getElementById('uploadArea').addEventListener('drop', (e) => {
+uploadArea.addEventListener('drop', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    document.getElementById('uploadArea').style.opacity = '1';
+    uploadArea.style.opacity = '1';
     
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-        document.getElementById('imageInput').files = files;
+        imageInput.files = files;
+        renderUploadPreview(files[0]);
     }
 });
 
@@ -100,7 +151,8 @@ document.getElementById('cnnForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const formData = new FormData(document.getElementById('cnnForm'));
-    const file = document.getElementById('imageInput').files[0];
+    formData.set('confidence_threshold', confidenceSlider.value);
+    const file = imageInput.files[0];
     
     if (!file) {
         alert('Please select an image');
@@ -134,30 +186,131 @@ function displayResults(data) {
     const resultsContainer = document.getElementById('resultsContainer');
     const resultImage = document.getElementById('resultImage');
     const predictions = document.getElementById('predictions');
+    const thresholdLabel = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
+    overlayEnabled = true;
 
     // Display image
     const reader = new FileReader();
     reader.onload = (e) => {
-        resultImage.innerHTML = `<img src="${e.target.result}" alt="Uploaded shark image" style="max-width: 100%; border-radius: 12px;" />`;
-    };
-    reader.readAsDataURL(document.getElementById('imageInput').files[0]);
-
-    // Display predictions
-    predictions.innerHTML = '<h4>Top Predictions:</h4>';
-    data.predictions.forEach((pred, index) => {
-        predictions.innerHTML += `
-            <div class="prediction-item">
-                <span class="rank">#${index + 1}</span>
-                <span class="species">${pred.species}</span>
-                <span class="confidence">${(pred.confidence * 100).toFixed(2)}%</span>
-                <div class="confidence-bar">
-                    <div class="bar-fill" style="width: ${pred.confidence * 100}%"></div>
+        resultImage.innerHTML = `
+            <div class="result-stage fade-in" id="resultStage">
+                <div class="result-media">
+                    <img id="resultPreviewImage" src="${e.target.result}" alt="Uploaded shark image" />
+                    <canvas id="resultOverlayCanvas" class="result-overlay" aria-hidden="true" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></canvas>
                 </div>
+                <button type="button" id="toggleOverlayBtn" class="btn btn-soft overlay-toggle" title="Toggle highest-confidence shark box">
+                    Shark Box: ON
+                </button>
             </div>
         `;
-    });
+
+        const previewImage = document.getElementById('resultPreviewImage');
+        const overlayCanvas = document.getElementById('resultOverlayCanvas');
+        const toggleButton = document.getElementById('toggleOverlayBtn');
+
+        const drawOverlay = () => drawHighestConfidenceBox(data, previewImage, overlayCanvas, overlayEnabled);
+
+        previewImage.addEventListener('load', drawOverlay, { once: true });
+
+        if (!hasDrawableBox(data)) {
+            toggleButton.disabled = true;
+            toggleButton.textContent = 'Shark Box: N/A';
+        }
+
+        toggleButton.addEventListener('click', () => {
+            overlayEnabled = !overlayEnabled;
+            toggleButton.textContent = `Shark Box: ${overlayEnabled ? 'ON' : 'OFF'}`;
+            drawOverlay();
+        });
+
+        window.addEventListener('resize', drawOverlay);
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+
+    // Display predictions
+    if (data.predictions.length === 0) {
+        predictions.innerHTML = `<h4>No shark detections found</h4><p>No detection met the current confidence line of ${thresholdLabel}. Try lowering it and re-analyze.</p>`;
+    } else {
+        predictions.innerHTML = `<h4>Detections (≥ ${thresholdLabel})</h4>`;
+        data.predictions.forEach((pred, index) => {
+            predictions.innerHTML += `
+                <div class="prediction-item">
+                    <span class="rank">#${index + 1}</span>
+                    <span class="species">${pred.species}</span>
+                    <span class="confidence">${(pred.confidence * 100).toFixed(2)}%</span>
+                    <div class="confidence-bar">
+                        <div class="bar-fill" style="width: ${pred.confidence * 100}%"></div>
+                    </div>
+                </div>
+            `;
+        });
+    }
 
     resultsContainer.style.display = 'block';
+}
+
+function hasDrawableBox(data) {
+    return data.predictions.some((pred) => Array.isArray(pred.bbox) && pred.bbox.length === 4);
+}
+
+function getHighestConfidencePrediction(data) {
+    const withBoxes = data.predictions.filter((pred) => Array.isArray(pred.bbox) && pred.bbox.length === 4);
+    if (withBoxes.length === 0) {
+        return null;
+    }
+
+    return withBoxes.reduce((best, current) => {
+        return current.confidence > best.confidence ? current : best;
+    });
+}
+
+function drawHighestConfidenceBox(data, imageElement, canvasElement, shouldShow) {
+    const context = canvasElement.getContext('2d');
+    const width = imageElement.clientWidth;
+    const height = imageElement.clientHeight;
+
+    if (!width || !height || !imageElement.naturalWidth || !imageElement.naturalHeight) {
+        return;
+    }
+
+    canvasElement.width = width;
+    canvasElement.height = height;
+    context.clearRect(0, 0, width, height);
+
+    if (!shouldShow) {
+        return;
+    }
+
+    const topPrediction = getHighestConfidencePrediction(data);
+    if (!topPrediction) {
+        return;
+    }
+
+    const [x1, y1, x2, y2] = topPrediction.bbox;
+    const boxX = x1 * width;
+    const boxY = y1 * height;
+    const boxWidth = (x2 - x1) * width;
+    const boxHeight = (y2 - y1) * height;
+
+    context.strokeStyle = '#4fc5ff';
+    context.lineWidth = 3;
+    context.setLineDash([8, 5]);
+    context.shadowColor = 'rgba(79, 197, 255, 0.55)';
+    context.shadowBlur = 14;
+    context.strokeRect(boxX, boxY, boxWidth, boxHeight);
+    context.setLineDash([]);
+    context.shadowBlur = 0;
+
+    const label = `${topPrediction.species} ${(topPrediction.confidence * 100).toFixed(1)}%`;
+    context.font = '600 13px Inter, sans-serif';
+    const textWidth = context.measureText(label).width;
+    const labelX = Math.max(8, boxX);
+    const labelY = Math.max(24, boxY - 8);
+
+    context.fillStyle = 'rgba(5, 22, 39, 0.82)';
+    context.fillRect(labelX - 6, labelY - 18, textWidth + 12, 22);
+    context.fillStyle = '#f1fbff';
+    context.fillText(label, labelX, labelY - 3);
 }
 </script>
 {% endblock %}

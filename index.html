@@ -105,6 +105,7 @@
                 and interactive educational resources. Support marine science and conservation efforts.
             </p>
             <button onclick="openProjectsModal()" class="btn btn-primary">View Our Projects</button>
+            <a href="{% url 'shark_cnn' %}" class="btn btn-soft">Open Shark CNN Page</a>
         </div>
         <div class="experience-image">
             <img src="{% static 'images/cnn.jpeg' %}" alt="Marine Conservation" class="tilt-card" />
@@ -124,7 +125,7 @@
                 <p>Interactive guide to identify shark species by visual characteristics</p>
             </button>
             <button class="project-btn glass" data-url="{% url 'shark_cnn' %}" onclick="window.location.href=this.dataset.url">
-                <h3>🤖 Shark Species CNN</h3>
+                <h3>🤖 Shark Species CNN Page</h3>
                 <p>AI-powered image recognition using deep learning models (v1 running on-site)</p>
             </button>
             <button class="project-btn glass" onclick="window.location.href='#'">

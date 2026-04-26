@@ -1,42 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SERRAFINS • Shark Species CNN</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../frontend/css/style.css" />
-    <link rel="stylesheet" href="../../frontend/css/pages/shark.css" />
-    <script defer src="../../frontend/javascript/main.js"></script>
-</head>
-<body class="shark-cnn-view">
-    <canvas id="liquid-canvas" aria-hidden="true"></canvas>
-    <div class="ambient-layer"></div>
-
-    <header class="glass nav-wrap">
-        <div class="nav-brand">SERRAFINS</div>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="main-navigation" class="main-nav">
-            <a href="../../index.html">Home</a>
-            <a href="packages.html">Packages</a>
-            <a href="about.html">About</a>
-            <a href="dashboard.html">Dashboard</a>
-        </nav>
-    </header>
-
-    <main class="page-shell">
-SERRAFINS • Shark Species CNN
-shark-cnn-view
-
-<link rel="stylesheet" href="../../frontend/css/pages/shark.css" />
-
-
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • Shark Species CNN{% endblock %}
+{% block body_class %}shark-cnn-view{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/shark.css' %}" />
+{% endblock %}
+{% block content %}
 <section class="shark-cnn-page">
     <h1>Shark Species Recognition CNN</h1>
     <p class="subtitle">AI-powered image recognition using deep learning models</p>
@@ -47,7 +16,7 @@ shark-cnn-view
         <p>Our Shark Species Recognition CNN is not yet available on this domain due to funding constraints. We're actively working on bringing it online. In the meantime, explore the training resources and tutorials below.</p>
     </div>
 
-    
+    {% if user.is_authenticated %}
     <aside class="confidence-float glass" aria-label="Confidence threshold control">
         <p class="confidence-title">Confidence Line</p>
         <input
@@ -65,11 +34,11 @@ shark-cnn-view
     <div class="cnn-container glass">
         <div class="cnn-auth-row glass">
             <div class="cnn-auth-meta">
-                <span class="cnn-auth-user">Signed in as Guest</span>
-                <span class="cnn-auth-credits" id="cnnCurrentCredits">Credits: —</span>
+                <span class="cnn-auth-user">Signed in as {{ user.username }}</span>
+                <span class="cnn-auth-credits" id="cnnCurrentCredits">Credits: {{ auth_profile.credits }}</span>
             </div>
-            <form method="post" action="#" onsubmit="return confirm('Log out now?');">
-                
+            <form method="post" action="{% url 'logout' %}" onsubmit="return confirm('Log out now?');">
+                {% csrf_token %}
                 <button type="submit" class="btn btn-logout">Logout</button>
             </form>
         </div>
@@ -87,7 +56,7 @@ shark-cnn-view
 
         <div class="cnn-upload glass">
             <h3>Upload Shark Image</h3>
-            <div id="modelBootstrap" class="model-bootstrap hidden">
+            <div id="modelBootstrap" class="model-bootstrap{% if model_available %} hidden{% endif %}">
                 <p class="bootstrap-title">No local model found.</p>
                 <button type="button" id="loadModelBtn" class="btn btn-primary">Click to load our CNN</button>
                 <div id="downloadProgress" class="download-progress hidden" aria-live="polite">
@@ -99,8 +68,8 @@ shark-cnn-view
                 <p class="small">Model URL is read from a local gitignored file.</p>
             </div>
 
-            <form id="cnnForm" enctype="multipart/form-data" style="display:none;">
-                
+            <form id="cnnForm" enctype="multipart/form-data"{% if not model_available %} style="display:none;"{% endif %}>
+                {% csrf_token %}
                 <div class="upload-area" id="uploadArea">
                     <input type="file" id="imageInput" name="image" accept="image/*" hidden />
                     <label for="imageInput" class="upload-label">
@@ -132,7 +101,7 @@ const loadModelBtn = document.getElementById('loadModelBtn');
 const downloadProgress = document.getElementById('downloadProgress');
 const downloadProgressFill = document.getElementById('downloadProgressFill');
 const downloadStatusText = document.getElementById('downloadStatusText');
-const modelInitiallyAvailable = "" === 'true';
+const modelInitiallyAvailable = "{{ model_available|yesno:'true,false' }}" === 'true';
 const passwordProtectedLinks = document.querySelectorAll('.cnn-resource-drawer .cnn-resource-link[data-password-protected="true"]');
 
 const confidenceSlider = document.getElementById('confidenceSlider');
@@ -217,7 +186,7 @@ if (loadModelBtn) {
         const progressTimer = startProgressAnimation();
 
         try {
-            const response = await fetch("#", {
+            const response = await fetch("{% url 'shark_cnn_load_model' %}", {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCsrfToken(),
@@ -335,7 +304,7 @@ cnnForm.addEventListener('submit', async (e) => {
     document.getElementById('resultsContainer').style.display = 'none';
 
     try {
-        const response = await fetch("shark_cnn.html", {
+        const response = await fetch("{% url 'shark_cnn' %}", {
             method: 'POST',
             body: formData
         });
@@ -666,7 +635,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 }
 
 </script>
-    
+    {% else %}
     <div class="cnn-login-gate glass" data-requires-backend>
         <div class="cnn-login-gate__hero">
             <div class="cnn-login-gate__eyebrow">Account required</div>
@@ -693,12 +662,12 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
                 <span>Fast sign-in, private usage tracking, instant CNN access.</span>
             </div>
             <div class="actions">
-                <a href="#?next=" class="btn btn-primary">Go to Login</a>
-                <a href="#?next=" class="btn btn-soft auth-google-btn">Continue with Google</a>
+                <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="btn btn-primary">Go to Login</a>
+                <a href="{% url 'google_login_start' %}?next={{ request.path|urlencode }}" class="btn btn-soft auth-google-btn">Continue with Google</a>
             </div>
         </div>
     </div>
-    
+    {% endif %}
 
     <div class="version-info">
         <h3>Version Roadmap</h3>
@@ -727,7 +696,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
             </summary>
 
             <div class="cnn-resource-drawer__body">
-                <a class="cnn-resource-link cnn-resource-link--tutorial" href="shark_tutorial.html">
+                <a class="cnn-resource-link cnn-resource-link--tutorial" href="{% url 'shark_tutorial' %}">
                     <span class="cnn-resource-link__eyebrow">Learn and build</span>
                     <strong>View tutorial (copy-paste friendly)</strong>
                     <small>New page with step-by-step local and Kaggle workflows.</small>
@@ -735,7 +704,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 
                 <a
                     class="cnn-resource-link"
-                    href="#"
+                    href="{{ shark_resources.dataset_32k_url|default:'#' }}"
                     data-password-protected="true"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -747,7 +716,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 
                 <a
                     class="cnn-resource-link"
-                    href="#"
+                    href="{{ shark_resources.epoch_99_url|default:'#' }}"
                     data-password-protected="true"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -759,7 +728,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 
                 <a
                     class="cnn-resource-link cnn-resource-link--primary"
-                    href="#"
+                    href="{{ shark_resources.latest_model_url|default:'#' }}"
                     data-password-protected="true"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -772,7 +741,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
                 <div class="cnn-resource-link-group" aria-label="YOLO resources">
                     <a
                         class="cnn-resource-link cnn-resource-link--compact"
-                        href="#"
+                        href="{{ shark_resources.yolo_s_url|default:'#' }}"
                         data-password-protected="true"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -783,7 +752,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 
                     <a
                         class="cnn-resource-link cnn-resource-link--compact"
-                        href="#"
+                        href="{{ shark_resources.yolo_m_url|default:'#' }}"
                         data-password-protected="true"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -796,6 +765,4 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
         </details>
     </div>
 </section>
-    </main>
-</body>
-</html>
+{% endblock %}

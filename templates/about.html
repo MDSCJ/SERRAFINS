@@ -1,41 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SERRAFINS • About Us</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../frontend/css/style.css" />
-    <link rel="stylesheet" href="../../frontend/css/pages/about.css" />
-    <script defer src="../../frontend/javascript/main.js"></script>
-</head>
-<body>
-    <canvas id="liquid-canvas" aria-hidden="true"></canvas>
-    <div class="ambient-layer"></div>
-
-    <header class="glass nav-wrap">
-        <div class="nav-brand">SERRAFINS</div>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="main-navigation" class="main-nav">
-            <a href="../../index.html">Home</a>
-            <a href="packages.html">Packages</a>
-            <a href="about.html">About</a>
-            <a href="dashboard.html">Dashboard</a>
-        </nav>
-    </header>
-
-    <main class="page-shell">
-SERRAFINS • About Us
-
-<link rel="stylesheet" href="../../frontend/css/pages/about.css" />
-
-
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • About Us{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/about.css' %}" />
+{% endblock %}
+{% block content %}
 <section class="about-showcase glass">
     <div class="about-showcase__copy">
         <p class="about-kicker">Built by students. Driven by ocean impact.</p>
@@ -74,7 +43,7 @@ SERRAFINS • About Us
         <article class="founder-profile glass tilt-card founder-profile--lead">
             <div class="founder-media">
                 <div class="founder-photo-wrap">
-                    <img src="../../frontend/images/developers/chamath.png" alt="Chamath Jayasinghe" class="founder-photo" />
+                    <img src="{% static 'images/developers/chamath.png' %}" alt="Chamath Jayasinghe" class="founder-photo" />
                 </div>
                 <div class="founder-links">
                     <a href="https://github.com/MDSCJ" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chamath GitHub" title="GitHub">
@@ -104,7 +73,7 @@ SERRAFINS • About Us
         <article class="founder-profile glass tilt-card founder-profile--pending">
             <div class="founder-media">
                 <div class="founder-photo-wrap founder-photo-wrap--pending">
-                    <img src="../../frontend/images/developers/indunil.jpg" alt="Indunil Batuwangala" class="founder-photo" onerror="this.style.display='none'; this.parentElement.classList.add('founder-photo-wrap--missing');" />
+                    <img src="{% static 'images/developers/indunil.jpg' %}" alt="Indunil Batuwangala" class="founder-photo" onerror="this.style.display='none'; this.parentElement.classList.add('founder-photo-wrap--missing');" />
                     <span class="founder-photo-placeholder">Credentials Pending</span>
                 </div>
                 <div class="founder-links founder-links--pending">
@@ -126,7 +95,7 @@ SERRAFINS • About Us
         <article class="founder-profile glass tilt-card">
             <div class="founder-media">
                 <div class="founder-photo-wrap">
-                    <img src="../../frontend/images/developers/chenuka.jpg" alt="Chenuka Wijesundara" class="founder-photo" />
+                    <img src="{% static 'images/developers/chenuka.jpg' %}" alt="Chenuka Wijesundara" class="founder-photo" />
                 </div>
                 <div class="founder-links">
                     <a href="https://github.com/sylvie-wi" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chenuka GitHub" title="GitHub">
@@ -155,7 +124,7 @@ SERRAFINS • About Us
         <article class="founder-profile glass tilt-card">
             <div class="founder-media">
                 <div class="founder-photo-wrap">
-                    <img src="../../frontend/images/developers/chanuga.png" alt="Chanuga Denuk Thihagoda Gamage" class="founder-photo" />
+                    <img src="{% static 'images/developers/chanuga.png' %}" alt="Chanuga Denuk Thihagoda Gamage" class="founder-photo" />
                 </div>
                 <div class="founder-links">
                     <a href="https://github.com/Denuk0Chanuga" target="_blank" rel="noopener noreferrer" class="founder-link founder-link--icon founder-link--github" aria-label="Chanuga GitHub" title="GitHub">
@@ -182,6 +151,4 @@ SERRAFINS • About Us
         </article>
     </div>
 </section>
-    </main>
-</body>
-</html>
+{% endblock %}

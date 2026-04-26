@@ -1,41 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SERRAFINS • Shark Species Recognition</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../frontend/css/style.css" />
-    <link rel="stylesheet" href="../../frontend/css/pages/shark.css" />
-    <script defer src="../../frontend/javascript/main.js"></script>
-</head>
-<body>
-    <canvas id="liquid-canvas" aria-hidden="true"></canvas>
-    <div class="ambient-layer"></div>
-
-    <header class="glass nav-wrap">
-        <div class="nav-brand">SERRAFINS</div>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav id="main-navigation" class="main-nav">
-            <a href="../../index.html">Home</a>
-            <a href="packages.html">Packages</a>
-            <a href="about.html">About</a>
-            <a href="dashboard.html">Dashboard</a>
-        </nav>
-    </header>
-
-    <main class="page-shell">
-SERRAFINS • Shark Species Recognition
-
-<link rel="stylesheet" href="../../frontend/css/pages/shark.css" />
-
-
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • Shark Species Recognition{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/shark.css' %}" />
+{% endblock %}
+{% block content %}
 <section class="shark-key-page">
     <h1>Shark Species Recognition Key</h1>
     <p class="subtitle">Interactive guide to identify shark species by visual characteristics</p>
@@ -65,7 +34,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Basking Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/basking.jpg" alt="Basking Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/basking.jpg' %}" alt="Basking Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Basking Shark</h3>
@@ -83,7 +52,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Blacktip Reef Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/blacktip.jpg" alt="Blacktip Reef Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/blacktip.jpg' %}" alt="Blacktip Reef Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Blacktip Reef Shark</h3>
@@ -101,7 +70,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Blue Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/blue.jpg" alt="Blue shark" loading="lazy" onerror="this.onerror=null;this.src='../../frontend/images/cnn.jpeg';this.classList.add('species-thumb--fallback');" />
+                <img class="species-thumb" src="{% static 'images/sharks/blue.jpg' %}" alt="Blue shark" loading="lazy" onerror="this.onerror=null;this.src='{% static 'images/cnn.jpeg' %}';this.classList.add('species-thumb--fallback');" />
             </div>
             <div class="species-header">
                 <h3>Blue shark</h3>
@@ -119,7 +88,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Bull Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/bull.jpg" alt="Bull Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/bull.jpg' %}" alt="Bull Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Bull Shark</h3>
@@ -137,7 +106,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Great White Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/greatwhite.jpg" alt="Great White Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/greatwhite.jpg' %}" alt="Great White Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Great White Shark</h3>
@@ -155,7 +124,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Hammerhead Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/hammerhead.jpg" alt="Hammerhead Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/hammerhead.jpg' %}" alt="Hammerhead Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Hammerhead Shark</h3>
@@ -173,7 +142,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Mako Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/mako.jpg" alt="Mako Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/mako.jpg' %}" alt="Mako Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Mako Shark</h3>
@@ -191,7 +160,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Thresher Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/thresher.jpg" alt="Thresher Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/thresher.jpg' %}" alt="Thresher Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Thresher Shark</h3>
@@ -209,7 +178,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Tiger Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/tiger.jpg" alt="Tiger Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/tiger.jpg' %}" alt="Tiger Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Tiger Shark</h3>
@@ -227,7 +196,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Whale Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/whale.jpg" alt="Whale Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/whale.jpg' %}" alt="Whale Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Whale Shark</h3>
@@ -245,7 +214,7 @@ SERRAFINS • Shark Species Recognition
         <!-- Whitetip Shark -->
         <div class="species-card glass tilt-card">
             <div class="species-thumb-wrap">
-                <img class="species-thumb" src="../../frontend/images/sharks/whitetip.jpg" alt="Whitetip Shark" loading="lazy" />
+                <img class="species-thumb" src="{% static 'images/sharks/whitetip.jpg' %}" alt="Whitetip Shark" loading="lazy" />
             </div>
             <div class="species-header">
                 <h3>Whitetip Shark</h3>
@@ -272,6 +241,4 @@ if (sharkKeyDownloadLink) {
     });
 }
 </script>
-    </main>
-</body>
-</html>
+{% endblock %}

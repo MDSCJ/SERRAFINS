@@ -1,3 +1,15 @@
+// ===== GitHub Pages gate — hide backend-only features on serrafins.com =====
+const isGitHubPages = ['serrafins.com', 'www.serrafins.com'].includes(
+  window.location.hostname.toLowerCase()
+);
+if (isGitHubPages) {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-requires-backend]').forEach(el => {
+      el.style.display = 'none';
+    });
+  });
+}
+
 // ===== Theme Switcher =====
 const themeSwitcher = document.querySelector('.theme-switcher');
 const themeInputs = document.querySelectorAll('.theme-switcher__input');

@@ -17,12 +17,12 @@ TEMPLATES_DIR = os.path.join(REPO_ROOT, "templates")
 
 # Pages to convert (filename -> extra CSS file basename)
 PAGES = {
-    "about.html": {"css": "about.css", "title": "SERRAFINS • About Us", "body_class": ""},
-    "packages.html": {"css": "packages.css", "title": "SERRAFINS • Packages", "body_class": ""},
-    "shark_key.html": {"css": "shark.css", "title": "SERRAFINS • Shark Species Recognition", "body_class": ""},
-    "shark_cnn.html": {"css": "shark.css", "title": "SERRAFINS • Shark Species CNN", "body_class": "shark-cnn-view"},
-    "shark_tutorial.html": {"css": "shark.css", "title": "SERRAFINS • YOLO11 Tutorial", "body_class": "shark-cnn-view"},
-    "dashboard.html": {"css": "dashboard.css", "title": "SERRAFINS • Dashboard", "body_class": ""},
+    "about.html": {"css": "about.css", "title": "About Us", "body_class": ""},
+    "packages.html": {"css": "packages.css", "title": "Packages", "body_class": ""},
+    "shark_key.html": {"css": "shark.css", "title": "Shark Species Recognition", "body_class": ""},
+    "shark_cnn.html": {"css": "shark.css", "title": "Shark Species CNN", "body_class": "shark-cnn-view"},
+    "shark_tutorial.html": {"css": "shark.css", "title": "YOLO11 Tutorial", "body_class": "shark-cnn-view"},
+    "dashboard.html": {"css": "dashboard.css", "title": "Dashboard", "body_class": ""},
 }
 
 # Relative path from frontend/pages/ back to repo root

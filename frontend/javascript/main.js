@@ -7,6 +7,9 @@ if (isGitHubPages) {
     document.querySelectorAll('[data-requires-backend]').forEach(el => {
       el.style.display = 'none';
     });
+    document.querySelectorAll('[data-github-pages-only]').forEach(el => {
+      el.style.display = '';
+    });
   });
 }
 

@@ -10,6 +10,12 @@
     <h1>Shark Species Recognition CNN</h1>
     <p class="subtitle">AI-powered image recognition using deep learning models</p>
 
+    <div class="cnn-not-deployed glass" data-github-pages-only style="display:none;">
+        <div class="cnn-not-deployed__icon">🚧</div>
+        <h2>CNN Not Yet Deployed</h2>
+        <p>Our Shark Species Recognition CNN is not yet available on this domain due to funding constraints. We're actively working on bringing it online. In the meantime, explore the training resources and tutorials below.</p>
+    </div>
+
     {% if user.is_authenticated %}
     <aside class="confidence-float glass" aria-label="Confidence threshold control">
         <p class="confidence-title">Confidence Line</p>
@@ -84,104 +90,7 @@
             <div id="resultImage"></div>
             <div id="predictions" class="predictions-list"></div>
         </div>
-
-        <div class="version-info">
-            <h3>Version Roadmap</h3>
-            <div class="roadmap">
-                <div class="roadmap-item completed">
-                    <span class="version-badge">v1.0</span>
-                    <p>Trained on 8,000 images with on-site CNN inference</p>
-                </div>
-                <div class="roadmap-item completed">
-                    <span class="version-badge">v2.0</span>
-                    <p>Expanded training pipeline completed with 32,000+ images and stronger accuracy</p>
-                </div>
-                <div class="roadmap-item pending">
-                    <span class="version-badge">v2.1</span>
-                    <p>Extended species database (50+ species)</p>
-                </div>
-            </div>
-
-            <details class="cnn-resource-drawer glass">
-                <summary>
-                    <span>
-                        <strong>Training resources</strong>
-                        <small>Open the dataset, epoch 99, and deploy-ready model links</small>
-                    </span>
-                    <span class="cnn-resource-drawer__chevron" aria-hidden="true">▾</span>
-                </summary>
-
-                <div class="cnn-resource-drawer__body">
-                    <a class="cnn-resource-link cnn-resource-link--tutorial" href="{% url 'shark_tutorial' %}">
-                        <span class="cnn-resource-link__eyebrow">Learn and build</span>
-                        <strong>View tutorial (copy-paste friendly)</strong>
-                        <small>New page with step-by-step local and Kaggle workflows.</small>
-                    </a>
-
-                    <a
-                        class="cnn-resource-link"
-                        href="{{ shark_resources.dataset_32k_url|default:'#' }}"
-                        data-password-protected="true"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="cnn-resource-link__eyebrow">Try from scratch</span>
-                        <strong>Try our dataset</strong>
-                        <small>32,000 images for building the detector from the ground up.</small>
-                    </a>
-
-                    <a
-                        class="cnn-resource-link"
-                        href="{{ shark_resources.epoch_99_url|default:'#' }}"
-                        data-password-protected="true"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="cnn-resource-link__eyebrow">Improve from the middle</span>
-                        <strong>Try our 99 epoch</strong>
-                        <small>Use the earlier training checkpoint with the previous metrics.</small>
-                    </a>
-
-                    <a
-                        class="cnn-resource-link cnn-resource-link--primary"
-                        href="{{ shark_resources.latest_model_url|default:'#' }}"
-                        data-password-protected="true"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="cnn-resource-link__eyebrow">Deploy ready</span>
-                        <strong>Current hosted model (YOLO-M, 8,000 images)</strong>
-                        <small>This smaller model is hosted for quick use. For the larger 32,000-image model, download and run locally using the two links below.</small>
-                    </a>
-
-                    <div class="cnn-resource-link-group" aria-label="YOLO resources">
-                        <a
-                            class="cnn-resource-link cnn-resource-link--compact"
-                            href="{{ shark_resources.yolo_s_url|default:'#' }}"
-                            data-password-protected="true"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <span class="cnn-resource-link__eyebrow">Lightweight</span>
-                            <strong>YOLO-S</strong>
-                        </a>
-
-                        <a
-                            class="cnn-resource-link cnn-resource-link--compact"
-                            href="{{ shark_resources.yolo_m_url|default:'#' }}"
-                            data-password-protected="true"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <span class="cnn-resource-link__eyebrow">Balanced</span>
-                            <strong>YOLO-M</strong>
-                        </a>
-                    </div>
-                </div>
-            </details>
-        </div>
     </div>
-</section>
 
 <script>
 // Handle file upload
@@ -727,7 +636,7 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
 
 </script>
     {% else %}
-    <div class="cnn-login-gate glass">
+    <div class="cnn-login-gate glass" data-requires-backend>
         <div class="cnn-login-gate__hero">
             <div class="cnn-login-gate__eyebrow">Account required</div>
             <h2>Unlock Shark Species CNN</h2>
@@ -759,5 +668,101 @@ function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detec
         </div>
     </div>
     {% endif %}
+
+    <div class="version-info">
+        <h3>Version Roadmap</h3>
+        <div class="roadmap">
+            <div class="roadmap-item completed">
+                <span class="version-badge">v1.0</span>
+                <p>Trained on 8,000 images with on-site CNN inference</p>
+            </div>
+            <div class="roadmap-item completed">
+                <span class="version-badge">v2.0</span>
+                <p>Expanded training pipeline completed with 32,000+ images and stronger accuracy</p>
+            </div>
+            <div class="roadmap-item pending">
+                <span class="version-badge">v2.1</span>
+                <p>Extended species database (50+ species)</p>
+            </div>
+        </div>
+
+        <details class="cnn-resource-drawer glass">
+            <summary>
+                <span>
+                    <strong>Training resources</strong>
+                    <small>Open the dataset, epoch 99, and deploy-ready model links</small>
+                </span>
+                <span class="cnn-resource-drawer__chevron" aria-hidden="true">▾</span>
+            </summary>
+
+            <div class="cnn-resource-drawer__body">
+                <a class="cnn-resource-link cnn-resource-link--tutorial" href="{% url 'shark_tutorial' %}">
+                    <span class="cnn-resource-link__eyebrow">Learn and build</span>
+                    <strong>View tutorial (copy-paste friendly)</strong>
+                    <small>New page with step-by-step local and Kaggle workflows.</small>
+                </a>
+
+                <a
+                    class="cnn-resource-link"
+                    href="{{ shark_resources.dataset_32k_url|default:'#' }}"
+                    data-password-protected="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="cnn-resource-link__eyebrow">Try from scratch</span>
+                    <strong>Try our dataset</strong>
+                    <small>32,000 images for building the detector from the ground up.</small>
+                </a>
+
+                <a
+                    class="cnn-resource-link"
+                    href="{{ shark_resources.epoch_99_url|default:'#' }}"
+                    data-password-protected="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="cnn-resource-link__eyebrow">Improve from the middle</span>
+                    <strong>Try our 99 epoch</strong>
+                    <small>Use the earlier training checkpoint with the previous metrics.</small>
+                </a>
+
+                <a
+                    class="cnn-resource-link cnn-resource-link--primary"
+                    href="{{ shark_resources.latest_model_url|default:'#' }}"
+                    data-password-protected="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="cnn-resource-link__eyebrow">Deploy ready</span>
+                    <strong>Current hosted model (YOLO-M, 8,000 images)</strong>
+                    <small>This smaller model is hosted for quick use. For the larger 32,000-image model, download and run locally using the two links below.</small>
+                </a>
+
+                <div class="cnn-resource-link-group" aria-label="YOLO resources">
+                    <a
+                        class="cnn-resource-link cnn-resource-link--compact"
+                        href="{{ shark_resources.yolo_s_url|default:'#' }}"
+                        data-password-protected="true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="cnn-resource-link__eyebrow">Lightweight</span>
+                        <strong>YOLO-S</strong>
+                    </a>
+
+                    <a
+                        class="cnn-resource-link cnn-resource-link--compact"
+                        href="{{ shark_resources.yolo_m_url|default:'#' }}"
+                        data-password-protected="true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="cnn-resource-link__eyebrow">Balanced</span>
+                        <strong>YOLO-M</strong>
+                    </a>
+                </div>
+            </div>
+        </details>
+    </div>
 </section>
 {% endblock %}

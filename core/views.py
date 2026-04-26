@@ -303,7 +303,7 @@ def google_login_callback_view(request):
 
 
 def home_view(request):
-    return render(request, "index.html")
+    return render(request, "home.html")
 
 
 def login_view(request):

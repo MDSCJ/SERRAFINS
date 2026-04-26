@@ -3,7 +3,7 @@ services:
     name: serrafins-backend
     runtime: python
     plan: starter
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    buildCommand: pip install -r requirements-render.txt && python manage.py collectstatic --noinput
     startCommand: gunicorn serrafins_site.wsgi:application --timeout 120
     envVars:
       - key: PYTHON_VERSION
@@ -19,7 +19,7 @@ services:
     runtime: python
     plan: starter
     schedule: "0 0 * * *"
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements-render.txt
     startCommand: python manage.py reset_daily_credits
     envVars:
       - key: PYTHON_VERSION

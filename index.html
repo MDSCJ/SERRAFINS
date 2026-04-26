@@ -152,16 +152,40 @@
                 <p>Interactive guide to identify shark species by visual characteristics</p>
             </button>
             <button class="project-btn glass" data-url="./frontend/pages/shark_cnn.html" onclick="window.location.href=this.dataset.url" data-requires-backend>
-                <h3>Shark Species CNN Page</h3>
+                <h3>Shark Species CNN</h3>
                 <p>AI-powered image recognition using deep learning models (v1 running on-site)</p>
+                <small>Login required • Upload shark images for instant analysis</small>
+            </button>
+            <button class="project-btn glass" data-url="./frontend/pages/shark_tutorial.html" onclick="window.location.href=this.dataset.url">
+                <h3>YOLO11 CNN Tutorial</h3>
+                <p>Learn how to train and use YOLO11 for custom shark detection models</p>
+                <small>Step-by-step guide with code examples</small>
             </button>
             <button class="project-btn glass" onclick="window.location.href='#'">
-                <h3>Shark Habitat Prediction GIS</h3>
-                <p>Geographic analysis of shark habitats and migration patterns (Coming Soon)</p>
+                <h3>Shark Habitat GIS</h3>
+                <p>Geographic analysis of shark habitats and migration patterns</p>
+                <small>Coming Soon</small>
             </button>
         </div>
     </div>
 </div>
     </main>
+
+    <script>
+        function openProjectsModal() {
+            document.getElementById('projectsModal').style.display = 'flex';
+        }
+        
+        function closeProjectsModal() {
+            document.getElementById('projectsModal').style.display = 'none';
+        }
+        
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('projectsModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

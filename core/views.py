@@ -444,16 +444,13 @@ def shark_cnn_load_model_view(request):
 
 def shark_cnn_view(request):
     model_path = _find_model_path()
-
-    if not request.user.is_authenticated:
-        if request.method == 'POST':
-            return JsonResponse({
-                'success': False,
-                'login_required': True,
-                'error': 'Login to use the CNN.',
-                'redirect_url': f"{reverse('login')}?next={reverse('shark_cnn')}",
-            })
-        return render(request, "shark_cnn.html", {"model_available": model_path is not None, "login_required": True, "shark_resources": _shark_resource_links()})
+    
+    # No login required - show tutorials and resource links
+    return render(request, "shark_cnn.html", {
+        "model_available": model_path is not None,
+        "login_required": False,
+        "shark_resources": _shark_resource_links()
+    })
 
     if request.method == 'POST':
         try:

@@ -63,45 +63,58 @@ shark-cnn-view
     </aside>
     
     <div class="cnn-container glass">
-        <div class="cnn-auth-row glass">
-            <div class="cnn-auth-meta">
-                <span class="cnn-auth-user">Signed in as Guest</span>
-                <span class="cnn-auth-credits" id="cnnCurrentCredits">Credits: —</span>
-            </div>
-            <form method="post" action="#" onsubmit="return confirm('Log out now?');">
-                
-                <button type="submit" class="btn btn-logout">Logout</button>
-            </form>
-        </div>
-
         <div class="cnn-info">
-            <h2>Model Information</h2>
+            <h2>Shark Species Recognition CNN</h2>
+            <h3>AI-Powered Image Recognition Model</h3>
             <ul>
-                <li><strong>Version:</strong> 1.0 (Running on-site)</li>
-                <li><strong>Model Type:</strong> Convolutional Neural Network (CNN)</li>
-                <li><strong>Framework:</strong> PyTorch</li>
-                <li><strong>Species Supported:</strong> 15+ shark species</li>
-                <li><strong>Accuracy:</strong> ~94% on validation set</li>
+                <li><strong>Model:</strong> YOLO11 Deep Learning Model</li>
+                <li><strong>Framework:</strong> PyTorch + Ultralytics</li>
+                <li><strong>Species Recognized:</strong> 15+ shark species</li>
+                <li><strong>Accuracy:</strong> ~94% on validation dataset</li>
+                <li><strong>Status:</strong> v1.0 Running On-Site</li>
             </ul>
         </div>
 
-        <div class="cnn-upload glass">
-            <h3>Upload Shark Image</h3>
-            <div id="modelBootstrap" class="model-bootstrap hidden">
-                <p class="bootstrap-title">No local model found.</p>
-                <button type="button" id="loadModelBtn" class="btn btn-primary">Click to load our CNN</button>
-                <div id="downloadProgress" class="download-progress hidden" aria-live="polite">
-                    <div class="download-progress-track">
-                        <div id="downloadProgressFill" class="download-progress-fill"></div>
-                    </div>
-                    <p id="downloadStatusText" class="download-status">Downloading model...</p>
-                </div>
-                <p class="small">Model URL is read from a local gitignored file.</p>
+        <div class="cnn-tutorials glass">
+            <h3>📚 Learning Resources & Tutorials</h3>
+            <div class="tutorial-links">
+                <a href="shark-cnn/tutorial/" class="tutorial-link glass">
+                    <h4>YOLO11 CNN Tutorial</h4>
+                    <p>Step-by-step guide to training custom shark detection models. Learn the complete workflow from data preparation to model deployment.</p>
+                    <span class="arrow">→ View Tutorial</span>
+                </a>
+                <a href="shark-key/" class="tutorial-link glass">
+                    <h4>Shark Species Recognition Key</h4>
+                    <p>Interactive visual guide to identify shark species by morphological characteristics. Perfect for marine enthusiasts and researchers.</p>
+                    <span class="arrow">→ View Guide</span>
+                </a>
             </div>
+        </div>
 
-            <form id="cnnForm" enctype="multipart/form-data" style="display:none;">
-                
-                <div class="upload-area" id="uploadArea">
+        <div class="cnn-resources glass">
+            <h3>🔗 Model Resources & Downloads</h3>
+            <div class="resources-list">
+                <p><strong>Pre-trained Models:</strong></p>
+                <ul>
+                    <li>Latest Model: <code>best.pt</code></li>
+                    <li>Epoch 99 Checkpoint: Available for download</li>
+                    <li>YOLO Small (YOLOv8s): Lightweight option</li>
+                    <li>YOLO Medium (YOLOv8m): Balanced performance</li>
+                </ul>
+                <p><strong>Training Dataset:</strong></p>
+                <ul>
+                    <li>32K Image Dataset: High-quality shark images</li>
+                    <li>Augmented with multiple angles and lighting conditions</li>
+                    <li>Available for research and educational purposes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+</main>
+</body>
+</html>
                     <input type="file" id="imageInput" name="image" accept="image/*" hidden />
                     <label for="imageInput" class="upload-label">
                         <p>Click to upload or drag and drop</p>

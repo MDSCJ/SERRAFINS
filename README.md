@@ -2,7 +2,7 @@
 
 Modern Django full-stack website with:
 - Authentication (`register`, `login`, `logout`, protected `dashboard`)
-- Aiven PostgreSQL-ready database configuration
+- Aiven MySQL-ready database configuration
 - MySQL database support for Django auth and credits
 - Google OAuth sign-in support via gitignored environment variables
 - Daily credits system with CNN usage gating
@@ -12,7 +12,7 @@ Modern Django full-stack website with:
 
 ## Stack
 - Django 5
-- PostgreSQL or MySQL via env config
+- MySQL via env config
 - Vanilla CSS/JS for glassmorphism + animation
 
 ## Project Structure

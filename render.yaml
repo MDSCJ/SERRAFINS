@@ -13,6 +13,18 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - fromGroup: secrets
+
+  - type: cron
+    name: serrafins-credit-reset
+    runtime: python
+    plan: starter
+    schedule: "0 0 * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python manage.py reset_daily_credits
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - fromGroup: secrets
   
   - type: postgresql
     name: serrafins-db

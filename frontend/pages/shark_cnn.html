@@ -92,15 +92,93 @@
                     <span class="version-badge">v1.0</span>
                     <p>Trained on 8,000 images with on-site CNN inference</p>
                 </div>
-                <div class="roadmap-item pending">
+                <div class="roadmap-item completed">
                     <span class="version-badge">v2.0</span>
-                    <p>Planned training on 32,000+ images with expanded accuracy</p>
+                    <p>Expanded training pipeline completed with 32,000+ images and stronger accuracy</p>
                 </div>
                 <div class="roadmap-item pending">
                     <span class="version-badge">v2.1</span>
                     <p>Extended species database (50+ species)</p>
                 </div>
             </div>
+
+            <details class="cnn-resource-drawer glass">
+                <summary>
+                    <span>
+                        <strong>Training resources</strong>
+                        <small>Open the dataset, epoch 99, and deploy-ready model links</small>
+                    </span>
+                    <span class="cnn-resource-drawer__chevron" aria-hidden="true">▾</span>
+                </summary>
+
+                <div class="cnn-resource-drawer__body">
+                    <a class="cnn-resource-link cnn-resource-link--tutorial" href="{% url 'shark_tutorial' %}">
+                        <span class="cnn-resource-link__eyebrow">Learn and build</span>
+                        <strong>View tutorial (copy-paste friendly)</strong>
+                        <small>New page with step-by-step local and Kaggle workflows.</small>
+                    </a>
+
+                    <a
+                        class="cnn-resource-link"
+                        href="{{ shark_resources.dataset_32k_url|default:'#' }}"
+                        data-password-protected="true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="cnn-resource-link__eyebrow">Try from scratch</span>
+                        <strong>Try our dataset</strong>
+                        <small>32,000 images for building the detector from the ground up.</small>
+                    </a>
+
+                    <a
+                        class="cnn-resource-link"
+                        href="{{ shark_resources.epoch_99_url|default:'#' }}"
+                        data-password-protected="true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="cnn-resource-link__eyebrow">Improve from the middle</span>
+                        <strong>Try our 99 epoch</strong>
+                        <small>Use the earlier training checkpoint with the previous metrics.</small>
+                    </a>
+
+                    <a
+                        class="cnn-resource-link cnn-resource-link--primary"
+                        href="{{ shark_resources.latest_model_url|default:'#' }}"
+                        data-password-protected="true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="cnn-resource-link__eyebrow">Deploy ready</span>
+                        <strong>Current hosted model (YOLO-M, 8,000 images)</strong>
+                        <small>This smaller model is hosted for quick use. For the larger 32,000-image model, download and run locally using the two links below.</small>
+                    </a>
+
+                    <div class="cnn-resource-link-group" aria-label="YOLO resources">
+                        <a
+                            class="cnn-resource-link cnn-resource-link--compact"
+                            href="{{ shark_resources.yolo_s_url|default:'#' }}"
+                            data-password-protected="true"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span class="cnn-resource-link__eyebrow">Lightweight</span>
+                            <strong>YOLO-S</strong>
+                        </a>
+
+                        <a
+                            class="cnn-resource-link cnn-resource-link--compact"
+                            href="{{ shark_resources.yolo_m_url|default:'#' }}"
+                            data-password-protected="true"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span class="cnn-resource-link__eyebrow">Balanced</span>
+                            <strong>YOLO-M</strong>
+                        </a>
+                    </div>
+                </div>
+            </details>
         </div>
     </div>
 </section>
@@ -115,6 +193,7 @@ const downloadProgress = document.getElementById('downloadProgress');
 const downloadProgressFill = document.getElementById('downloadProgressFill');
 const downloadStatusText = document.getElementById('downloadStatusText');
 const modelInitiallyAvailable = "{{ model_available|yesno:'true,false' }}" === 'true';
+const passwordProtectedLinks = document.querySelectorAll('.cnn-resource-drawer .cnn-resource-link[data-password-protected="true"]');
 
 const confidenceSlider = document.getElementById('confidenceSlider');
 const confidenceValue = document.getElementById('confidenceValue');
@@ -178,6 +257,19 @@ function stopProgressAnimation(timer) {
     downloadProgressFill.style.width = '100%';
 }
 
+passwordProtectedLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+        const href = (link.getAttribute('href') || '').trim();
+        if (!href || href === '#') {
+            event.preventDefault();
+            alert('This file link is not available yet.');
+            return;
+        }
+
+        alert('Password for this file: www.serrafins.com');
+    });
+});
+
 if (loadModelBtn) {
     loadModelBtn.addEventListener('click', async () => {
         loadModelBtn.disabled = true;
@@ -217,14 +309,6 @@ if (loadModelBtn) {
 
 setModelReady(modelInitiallyAvailable);
 
-uploadArea.addEventListener('click', (event) => {
-    // Label already opens the file picker via the "for" attribute; skip to avoid double-open.
-    if (event.target.closest('label') || event.target === imageInput) {
-        return;
-    }
-    imageInput.click();
-});
-
 function updateConfidenceLabel() {
     confidenceValue.textContent = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
 }
@@ -253,6 +337,18 @@ imageInput.addEventListener('change', () => {
 });
 
 // Drag and drop
+document.addEventListener('dragover', (e) => {
+    if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('drop', (e) => {
+    if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) {
+        e.preventDefault();
+    }
+});
+
 uploadArea.addEventListener('dragover', (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -267,11 +363,13 @@ uploadArea.addEventListener('drop', (e) => {
     e.preventDefault();
     e.stopPropagation();
     uploadArea.style.opacity = '1';
-    
+
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-        imageInput.files = files;
-        renderUploadPreview(files[0]);
+        const transfer = new DataTransfer();
+        transfer.items.add(files[0]);
+        imageInput.files = transfer.files;
+        renderUploadPreview(transfer.files[0]);
     }
 });
 
@@ -336,6 +434,134 @@ function displayResults(data) {
     const predictions = document.getElementById('predictions');
     const thresholdLabel = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
     overlayEnabled = true;
+    let previewImage = null;
+    let overlayCanvas = null;
+
+    const detections = Array.isArray(data.predictions)
+        ? data.predictions.map((pred, index) => ({
+            ...pred,
+            id: `detection-${index}`,
+            visible: true,
+            hasBox: Array.isArray(pred.bbox) && pred.bbox.length === 4,
+        }))
+        : [];
+
+    const colorPalette = ['#4fc5ff', '#22c55e', '#f59e0b', '#ef4444', '#a855f7', '#14b8a6'];
+
+    const getDetectionColor = (index) => colorPalette[index % colorPalette.length];
+
+    const renderDetectionTabs = () => {
+        if (detections.length === 0) {
+            predictions.innerHTML = `<h4>No shark detections found</h4><p>No detection met the current confidence line of ${thresholdLabel}. Try lowering it and re-analyze.</p>`;
+            return;
+        }
+
+        const activeId = predictions.querySelector('.prediction-tab.is-active')?.dataset.detectionId || detections[0].id;
+        const activeDetection = detections.find((detection) => detection.id === activeId) || detections[0];
+
+        predictions.innerHTML = `
+            <h4>Detections (≥ ${thresholdLabel})</h4>
+            <div class="prediction-tabs" role="tablist" aria-label="Shark detections"></div>
+            <div class="prediction-panel glass" data-panel-for="${activeDetection.id}"></div>
+        `;
+
+        const tabsList = predictions.querySelector('.prediction-tabs');
+        const panel = predictions.querySelector('.prediction-panel');
+
+        const updatePanel = (detectionId) => {
+            const detection = detections.find((item) => item.id === detectionId) || detections[0];
+            if (!detection) {
+                panel.innerHTML = '';
+                return;
+            }
+
+            panel.dataset.panelFor = detection.id;
+            panel.innerHTML = `
+                <div class="prediction-panel__header">
+                    <div>
+                        <span class="prediction-panel__eyebrow">Active detection</span>
+                        <h5>${detection.species}</h5>
+                    </div>
+                    <div class="prediction-panel__meta">
+                        <span class="prediction-panel__confidence">${(detection.confidence * 100).toFixed(2)}%</span>
+                        <span class="prediction-panel__box-state ${detection.visible ? 'is-visible' : 'is-hidden'}">
+                            ${detection.visible ? 'Box visible' : 'Box hidden'}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="prediction-panel__body">
+                    <p class="prediction-panel__species">${detection.species}</p>
+                    <div class="confidence-bar">
+                        <div class="bar-fill" style="width: ${detection.confidence * 100}%; background: ${getDetectionColor(detection.index)}"></div>
+                    </div>
+                    <p class="prediction-panel__notes">
+                        ${detection.hasBox ? 'This detection has a bounding box on the image overlay.' : 'This detection does not include a bounding box.'}
+                    </p>
+                </div>
+            `;
+
+            predictions.querySelectorAll('.prediction-tab').forEach((tab) => {
+                tab.classList.toggle('is-active', tab.dataset.detectionId === detection.id);
+                tab.setAttribute('aria-selected', tab.dataset.detectionId === detection.id ? 'true' : 'false');
+            });
+
+            if (previewImage && overlayCanvas) {
+                drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
+            }
+        };
+
+        detections.forEach((detection, index) => {
+            const tab = document.createElement('div');
+            tab.className = `prediction-tab${index === 0 ? ' is-active' : ''}`;
+            tab.dataset.detectionId = detection.id;
+            tab.setAttribute('role', 'tab');
+            tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+
+            const visibilityButtonLabel = detection.visible ? 'Hide box' : 'Show box';
+
+            tab.innerHTML = `
+                <button type="button" class="prediction-tab__select" aria-label="Show details for ${detection.species}">
+                    <span class="prediction-tab__rank">#${index + 1}</span>
+                    <span class="prediction-tab__species">${detection.species}</span>
+                    <span class="prediction-tab__confidence">${(detection.confidence * 100).toFixed(2)}%</span>
+                </button>
+                <button type="button" class="prediction-tab__toggle ${detection.visible ? 'is-visible' : 'is-hidden'}" aria-pressed="true">
+                    ${visibilityButtonLabel}
+                </button>
+            `;
+
+            const selectButton = tab.querySelector('.prediction-tab__select');
+            const toggleButton = tab.querySelector('.prediction-tab__toggle');
+
+            selectButton.addEventListener('click', () => {
+                updatePanel(detection.id);
+            });
+
+            toggleButton.addEventListener('click', () => {
+                detection.visible = !detection.visible;
+                toggleButton.setAttribute('aria-pressed', detection.visible ? 'true' : 'false');
+                toggleButton.textContent = detection.visible ? 'Hide box' : 'Show box';
+                toggleButton.classList.toggle('is-hidden', !detection.visible);
+                toggleButton.classList.toggle('is-visible', detection.visible);
+
+                if (panel.dataset.panelFor === detection.id) {
+                    const boxState = panel.querySelector('.prediction-panel__box-state');
+                    if (boxState) {
+                        boxState.classList.toggle('is-visible', detection.visible);
+                        boxState.classList.toggle('is-hidden', !detection.visible);
+                        boxState.textContent = detection.visible ? 'Box visible' : 'Box hidden';
+                    }
+                }
+
+                drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
+            });
+
+            tabsList.appendChild(tab);
+        });
+
+        updatePanel(activeDetection.id);
+    };
 
     // Display image
     const reader = new FileReader();
@@ -356,11 +582,11 @@ function displayResults(data) {
             </div>
         `;
 
-        const previewImage = document.getElementById('resultPreviewImage');
-        const overlayCanvas = document.getElementById('resultOverlayCanvas');
+        previewImage = document.getElementById('resultPreviewImage');
+        overlayCanvas = document.getElementById('resultOverlayCanvas');
         const overlayToggle = document.getElementById('overlayToggle');
 
-        const drawOverlay = () => drawHighestConfidenceBox(data, previewImage, overlayCanvas, overlayEnabled);
+        const drawOverlay = () => drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
 
         previewImage.addEventListener('load', drawOverlay, { once: true });
 
@@ -382,23 +608,7 @@ function displayResults(data) {
     reader.readAsDataURL(imageInput.files[0]);
 
     // Display predictions
-    if (data.predictions.length === 0) {
-        predictions.innerHTML = `<h4>No shark detections found</h4><p>No detection met the current confidence line of ${thresholdLabel}. Try lowering it and re-analyze.</p>`;
-    } else {
-        predictions.innerHTML = `<h4>Detections (≥ ${thresholdLabel})</h4>`;
-        data.predictions.forEach((pred, index) => {
-            predictions.innerHTML += `
-                <div class="prediction-item">
-                    <span class="rank">#${index + 1}</span>
-                    <span class="species">${pred.species}</span>
-                    <span class="confidence">${(pred.confidence * 100).toFixed(2)}%</span>
-                    <div class="confidence-bar">
-                        <div class="bar-fill" style="width: ${pred.confidence * 100}%"></div>
-                    </div>
-                </div>
-            `;
-        });
-    }
+    renderDetectionTabs();
 
     resultsContainer.style.display = 'block';
 }
@@ -465,6 +675,54 @@ function drawHighestConfidenceBox(data, imageElement, canvasElement, shouldShow)
     context.fillRect(labelX - 6, labelY - 18, textWidth + 12, 22);
     context.fillStyle = '#f1fbff';
     context.fillText(label, labelX, labelY - 3);
+}
+
+function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detections) {
+    const context = canvasElement.getContext('2d');
+    const width = imageElement.clientWidth;
+    const height = imageElement.clientHeight;
+
+    if (!width || !height || !imageElement.naturalWidth || !imageElement.naturalHeight) {
+        return;
+    }
+
+    canvasElement.width = width;
+    canvasElement.height = height;
+    context.clearRect(0, 0, width, height);
+
+    if (!shouldShow) {
+        return;
+    }
+
+    const visibleDetections = detections.filter((detection) => detection.visible && detection.hasBox);
+    visibleDetections.forEach((detection, index) => {
+        const [x1, y1, x2, y2] = detection.bbox;
+        const boxX = x1 * width;
+        const boxY = y1 * height;
+        const boxWidth = (x2 - x1) * width;
+        const boxHeight = (y2 - y1) * height;
+        const color = ['#4fc5ff', '#22c55e', '#f59e0b', '#ef4444', '#a855f7', '#14b8a6'][index % 6];
+
+        context.strokeStyle = color;
+        context.lineWidth = 3;
+        context.setLineDash([8, 5]);
+        context.shadowColor = color;
+        context.shadowBlur = 14;
+        context.strokeRect(boxX, boxY, boxWidth, boxHeight);
+        context.setLineDash([]);
+        context.shadowBlur = 0;
+
+        const label = `${detection.species} ${(detection.confidence * 100).toFixed(1)}%`;
+        context.font = '600 13px Inter, sans-serif';
+        const textWidth = context.measureText(label).width;
+        const labelX = Math.max(8, boxX);
+        const labelY = Math.max(24, boxY - 8);
+
+        context.fillStyle = 'rgba(5, 22, 39, 0.82)';
+        context.fillRect(labelX - 6, labelY - 18, textWidth + 12, 22);
+        context.fillStyle = '#f1fbff';
+        context.fillText(label, labelX, labelY - 3);
+    });
 }
 
 </script>

@@ -384,6 +384,20 @@ def shark_key_view(request):
     return render(request, "shark_key.html")
 
 
+def shark_tutorial_view(request):
+    return render(request, "shark_tutorial.html")
+
+
+def _shark_resource_links() -> dict[str, str]:
+    return {
+        "dataset_32k_url": os.getenv("SHARK_DATASET_32K_URL", "").strip(),
+        "epoch_99_url": os.getenv("SHARK_EPOCH99_URL", "").strip(),
+        "latest_model_url": _get_private_model_url(),
+        "yolo_s_url": os.getenv("SHARK_YOLO_S_URL", "").strip(),
+        "yolo_m_url": os.getenv("SHARK_YOLO_M_URL", "").strip(),
+    }
+
+
 def shark_cnn_load_model_view(request):
     if request.method != 'POST':
         return JsonResponse({'success': False, 'error': 'POST method required.'}, status=405)
@@ -439,7 +453,7 @@ def shark_cnn_view(request):
                 'error': 'Login to use the CNN.',
                 'redirect_url': f"{reverse('login')}?next={reverse('shark_cnn')}",
             })
-        return render(request, "shark_cnn.html", {"model_available": model_path is not None, "login_required": True})
+        return render(request, "shark_cnn.html", {"model_available": model_path is not None, "login_required": True, "shark_resources": _shark_resource_links()})
 
     if request.method == 'POST':
         try:
@@ -570,4 +584,4 @@ def shark_cnn_view(request):
                 'error': str(exc)
             })
 
-    return render(request, "shark_cnn.html", {'model_available': model_path is not None, 'login_required': False})
+    return render(request, "shark_cnn.html", {'model_available': model_path is not None, 'login_required': False, 'shark_resources': _shark_resource_links()})

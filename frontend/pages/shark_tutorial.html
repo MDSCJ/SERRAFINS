@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SERRAFINS • YOLO11 Tutorial{% endblock %}
+{% block body_class %}shark-cnn-view{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/shark.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="shark-tutorial-page">
+    <header class="tutorial-hero glass">
+        <p class="tutorial-kicker">Step-by-step implementation guide</p>
+        <h1>End-to-End YOLO11 Training and Deployment Tutorial</h1>
+        <p>
+            Kaggle users (recommended when you have no GPU)
+            and try local way if you got a crazy GPU. 
+        </p>
+        <a href="{% url 'shark_cnn' %}" class="btn btn-soft">Back to Shark CNN</a>
+    </header>
+
+    <section class="tutorial-question glass" aria-labelledby="tutorial-question-title">
+        <h2 id="tutorial-question-title">How do you want to learn?</h2>
+        <p>Select one option and we will only show that tutorial path.</p>
+        <div class="tutorial-question__actions" role="group" aria-label="Tutorial path selection">
+            <button type="button" class="btn btn-soft tutorial-select-btn" id="select-kaggle-btn" data-track="kaggle">Kaggle Way</button>
+            <button type="button" class="btn btn-soft tutorial-select-btn" id="select-local-btn" data-track="local">Local Way</button>
+        </div>
+        <p id="tutorialSelectionStatus" class="tutorial-selection-status" aria-live="polite">Please select Kaggle Way or Local Way to begin.</p>
+    </section>
+
+    <div class="tutorial-track-grid">
+        <article class="tutorial-track glass hidden" id="local-track" aria-hidden="true">
+            <div class="tutorial-track__head">
+                <h2>Local Users (Windows + NVIDIA GPU)</h2>
+                <p>Complete workflow from environment setup to Gradio app deployment.</p>
+            </div>
+
+            <section class="tutorial-step">
+                <h3>Step 1: Environment and Dependency Setup</h3>
+                <p>Use strict versions to keep CUDA, PyTorch, and Ultralytics stable.</p>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="local-setup">Copy</button>
+                    <pre id="local-setup"><code># 1) Install Python 3.11
+winget install -e --id Python.Python.3.11
+
+# 2) Create and activate a virtual environment
+python -m venv A:\nc_files\waralen_ai\env\sharkenv
+call A:\nc_files\waralen_ai\env\sharkenv\Scripts\activate.bat
+
+# 3) Install PyTorch for CUDA 12.1
+pip install torch==2.4.1+cu121 torchvision==0.19.1+cu121 torchaudio==2.4.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+
+# 4) Install YOLO + Gradio + support packages
+pip install ultralytics==8.3.0 opencv-python==4.10.0.84 Pillow==10.4.0 numpy==1.26.4 gradio==4.44.0 PyYAML==6.0.2 tqdm==4.66.5</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Step 2: Initial Training (tune.py)</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="local-tune">Copy</button>
+                    <pre id="local-tune"><code>from pathlib import Path
+from ultralytics import YOLO
+
+if __name__ == "__main__":
+    root = Path(__file__).resolve().parent
+    data_yaml = (root / "data.yaml").resolve()
+
+    if not data_yaml.exists():
+        raise FileNotFoundError(f"data.yaml not found: {data_yaml}")
+
+    print(f"Using data.yaml: {data_yaml}")
+    print("Initializing yolo11s.pt (will auto-download if missing)...")
+
+    model = YOLO("yolo11s.pt")
+
+    results = model.train(
+        data=str(data_yaml),
+        epochs=200,
+        imgsz=512,
+        batch=16,
+        device=0,
+        workers=2,
+        name="shark_yolo11s",
+        patience=0,
+        optimizer="AdamW",
+        augment=True,
+        amp=False,
+        lr0=0.001,
+        save_period=1
+    )
+
+    model.val()
+    model.export(format="onnx")
+    print("Best model saved at: runs/detect/shark_yolo11s/weights/best.onnx")</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Step 3: Resume After Crash (resume.py)</h3>
+                <p>Use this when RAM or VRAM causes an interruption.</p>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="local-resume">Copy</button>
+                    <pre id="local-resume"><code>from ultralytics import YOLO
+
+if __name__ == '__main__':
+    model = YOLO(r'D:\new\runs\detect\shark_yolo11s2\weights\last.pt')
+
+    print("Resuming training with reduced RAM load...")
+    results = model.train(
+        resume=True,
+        workers=0,
+        batch=8
+    )</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Step 4: Build Web UI (app.py)</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="local-app">Copy</button>
+                    <pre id="local-app"><code>"""
+Single-image shark polygon detection demo
+"""
+import gradio as gr
+from ultralytics import YOLO
+
+MODEL_PATH = "D:/new/runs/detect/shark_yolo11s2/weights/best.pt"
+
+print("Loading model...")
+model = YOLO(MODEL_PATH)
+
+def shark_id(image):
+    results = model.predict(image, conf=0.50, imgsz=640)
+    annotated_img = results[0].plot()
+    return annotated_img[:, :, ::-1]
+
+demo = gr.Interface(
+    fn=shark_id,
+    inputs=gr.Image(type="numpy", label="Drop shark image here"),
+    outputs=gr.Image(type="numpy", label="Detection Results"),
+    title="YOLO11 Shark Identifier",
+    description="Upload an image of a shark to test model detection accuracy."
+)
+
+if __name__ == "__main__":
+    demo.launch(server_name="127.0.0.1", server_port=7860, share=True)</code></pre>
+                </div>
+            </section>
+        </article>
+
+        <article class="tutorial-track glass hidden" id="kaggle-track" aria-hidden="true">
+            <div class="tutorial-track__head">
+                <h2>Kaggle Users (No GPU? Use this path)</h2>
+                <p>If you have no local GPU, Kaggle is the recommended workflow.</p>
+            </div>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Markdown Cell 1: Introduction</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-md-1">Copy</button>
+                    <pre id="kaggle-md-1"><code># Marine Species Detection with YOLO11
+
+Welcome to this guide for training a YOLO11 object detection model for marine life.
+
+In this project, shark images and background frames are spread across multiple Kaggle datasets.
+
+This notebook teaches you to:
+1. Set up the YOLO11 environment in Kaggle.
+2. Bypass Kaggle network logger bugs.
+3. Dynamically combine scattered directories without moving huge files.
+4. Train YOLO11 using dual GPUs.</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Code Cell 1: Environment Setup</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-code-1">Copy</button>
+                    <pre id="kaggle-code-1"><code>!pip install -U ultralytics
+
+import os
+from ultralytics import YOLO, settings
+
+os.environ["WANDB_MODE"] = "disabled"
+os.environ["COMET_MODE"] = "DISABLED"
+os.environ["CLEARML_WEB_HOST"] = ""
+settings.update({'wandb': False, 'comet': False})
+
+print("Environment setup complete. External loggers disabled.")</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Markdown Cell 2: Data Preparation Strategy</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-md-2">Copy</button>
+                    <pre id="kaggle-md-2"><code>## Data Preparation Strategy
+
+YOLO normally expects images in a single train/val folder. With multiple Kaggle inputs,
+copying everything can waste too much storage and time.
+
+Use text files that list absolute image paths. Then point data.yaml to those text files.
+YOLO will map labels automatically.</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Code Cell 2: Dynamic Data Merging</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-code-2">Copy</button>
+                    <pre id="kaggle-code-2"><code>import os
+import yaml
+from ultralytics import settings
+
+def prepare_yolo_dataset():
+    working_yaml = "/kaggle/working/kaggle_data.yaml"
+    train_txt = "/kaggle/working/train_images.txt"
+    val_txt = "/kaggle/working/val_images.txt"
+
+    settings.update({'datasets_dir': '/kaggle/working'})
+
+    train_dirs = [
+        '/kaggle/input/datasets/shashikachamath/sharks/train/images',
+        '/kaggle/input/datasets/shashikachamath/trainimagesbc'
+    ]
+
+    with open(train_txt, 'w') as f:
+        for d in train_dirs:
+            if os.path.exists(d):
+                for img in os.listdir(d):
+                    if img.lower().endswith(('.png', '.jpg', '.jpeg')):
+                        f.write(os.path.join(d, img) + '\n')
+
+    val_dirs = [
+        '/kaggle/input/datasets/shashikachamath/sharks/valid/images',
+        '/kaggle/input/datasets/shashikachamath/backgroundsval/val/images'
+    ]
+
+    with open(val_txt, 'w') as f:
+        for d in val_dirs:
+            if os.path.exists(d):
+                for img in os.listdir(d):
+                    if img.lower().endswith(('.png', '.jpg', '.jpeg')):
+                        f.write(os.path.join(d, img) + '\n')
+
+    yaml_data = {
+        'path': '',
+        'train': train_txt,
+        'val': val_txt,
+        'nc': 12,
+        'names': {
+            0: 'Class_0', 1: 'Class_1', 2: 'Class_2', 3: 'Class_3',
+            4: 'Class_4', 5: 'Class_5', 6: 'Class_6', 7: 'Class_7',
+            8: 'Class_8', 9: 'Class_9', 10: 'Class_10', 11: 'Class_11'
+        }
+    }
+
+    with open(working_yaml, 'w') as f:
+        yaml.dump(yaml_data, f)
+
+    return working_yaml
+
+yaml_path = prepare_yolo_dataset()
+print(f"YAML generated at: {yaml_path}")</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Markdown Cell 3: Training the Model</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-md-3">Copy</button>
+                    <pre id="kaggle-md-3"><code>## Training Phase
+
+Now that data is mapped, start training with dual T4 GPUs using device=[0, 1].
+Load a checkpoint to resume from where you left off.</code></pre>
+                </div>
+            </section>
+
+            <section class="tutorial-step">
+                <h3>Kaggle Code Cell 3: Execute Training</h3>
+                <div class="tutorial-code-wrap">
+                    <button class="tutorial-copy-btn" data-copy-target="kaggle-code-3">Copy</button>
+                    <pre id="kaggle-code-3"><code>from ultralytics import YOLO
+
+checkpoint_path = "/kaggle/input/models/shashikachamath/56/pytorch/default/1/epoch56.pt"
+model = YOLO(checkpoint_path)
+
+results = model.train(
+    data="/kaggle/working/kaggle_data.yaml",
+    epochs=46,
+    imgsz=512,
+    batch=32,
+    device=[0, 1],
+    optimizer="AdamW",
+    lr0=0.001,
+    amp=False,
+    name="shark_dual_gpu_resumed",
+    project="/kaggle/working/runs",
+    exist_ok=True,
+    save_period=2,
+    workers=8
+)
+
+print("Training Complete!")</code></pre>
+                </div>
+            </section>
+        </article>
+    </div>
+</section>
+
+<script>
+const tutorialCopyButtons = document.querySelectorAll('.tutorial-copy-btn');
+const tutorialSelectionStatus = document.getElementById('tutorialSelectionStatus');
+const localTrack = document.getElementById('local-track');
+const kaggleTrack = document.getElementById('kaggle-track');
+const localSelectBtn = document.getElementById('select-local-btn');
+const kaggleSelectBtn = document.getElementById('select-kaggle-btn');
+
+function updateSelectionButtons(track) {
+    localSelectBtn.classList.toggle('is-selected', track === 'local');
+    kaggleSelectBtn.classList.toggle('is-selected', track === 'kaggle');
+    localSelectBtn.setAttribute('aria-pressed', track === 'local' ? 'true' : 'false');
+    kaggleSelectBtn.setAttribute('aria-pressed', track === 'kaggle' ? 'true' : 'false');
+}
+
+function showTutorialTrack(track) {
+    const showLocal = track === 'local';
+    const showKaggle = track === 'kaggle';
+
+    localTrack.classList.toggle('hidden', !showLocal);
+    kaggleTrack.classList.toggle('hidden', !showKaggle);
+    localTrack.setAttribute('aria-hidden', showLocal ? 'false' : 'true');
+    kaggleTrack.setAttribute('aria-hidden', showKaggle ? 'false' : 'true');
+
+    updateSelectionButtons(track);
+
+    if (showLocal) {
+        tutorialSelectionStatus.textContent = 'Showing Local Way tutorial only.';
+        try {
+            localStorage.setItem('sharkTutorialTrack', 'local');
+        } catch (error) {}
+        return;
+    }
+
+    if (showKaggle) {
+        tutorialSelectionStatus.textContent = 'Showing Kaggle Way tutorial only.';
+        try {
+            localStorage.setItem('sharkTutorialTrack', 'kaggle');
+        } catch (error) {}
+        return;
+    }
+
+    tutorialSelectionStatus.textContent = 'Please select Kaggle Way or Local Way to begin.';
+}
+
+localSelectBtn.addEventListener('click', () => showTutorialTrack('local'));
+kaggleSelectBtn.addEventListener('click', () => showTutorialTrack('kaggle'));
+
+let preferredTrack = '';
+try {
+    preferredTrack = localStorage.getItem('sharkTutorialTrack') || '';
+} catch (error) {
+    preferredTrack = '';
+}
+
+if (preferredTrack === 'local' || preferredTrack === 'kaggle') {
+    showTutorialTrack(preferredTrack);
+} else {
+    showTutorialTrack('');
+}
+
+tutorialCopyButtons.forEach((button) => {
+    button.addEventListener('click', async () => {
+        const targetId = button.getAttribute('data-copy-target');
+        const codeBlock = document.getElementById(targetId);
+
+        if (!codeBlock) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(codeBlock.innerText);
+            const previousText = button.textContent;
+            button.textContent = 'Copied';
+            setTimeout(() => {
+                button.textContent = previousText;
+            }, 1100);
+        } catch (error) {
+            alert('Copy failed. Please copy manually.');
+        }
+    });
+});
+</script>
+{% endblock %}

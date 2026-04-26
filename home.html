@@ -126,19 +126,14 @@
         <h2>Open Source Projects</h2>
         <p>Explore our marine science initiatives and AI-powered conservation tools.</p>
         <div class="projects-grid">
-            <button class="project-btn glass" data-url="{% url 'shark_key' %}" onclick="window.location.href=this.dataset.url">
-                <h3>Shark Species Recognition Key</h3>
-                <p>Interactive guide to identify shark species by visual characteristics</p>
-            </button>
             <button class="project-btn glass" data-url="{% url 'shark_cnn' %}" onclick="window.location.href=this.dataset.url" data-requires-backend>
                 <h3>Shark Species CNN</h3>
                 <p>AI-powered image recognition using deep learning models (v1 running on-site)</p>
                 <small>Login required • Upload shark images for instant analysis</small>
             </button>
-            <button class="project-btn glass" data-url="{% url 'shark_tutorial' %}" onclick="window.location.href=this.dataset.url">
-                <h3>YOLO11 CNN Tutorial</h3>
-                <p>Learn how to train and use YOLO11 for custom shark detection models</p>
-                <small>Step-by-step guide with code examples</small>
+            <button class="project-btn glass" data-url="{% url 'shark_key' %}" onclick="window.location.href=this.dataset.url">
+                <h3>Shark Species Recognition Key</h3>
+                <p>Interactive guide to identify shark species by visual characteristics</p>
             </button>
             <button class="project-btn glass" onclick="window.location.href='#'">
                 <h3>Shark Habitat GIS</h3>

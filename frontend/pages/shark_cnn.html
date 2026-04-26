@@ -31,768 +31,91 @@
     </header>
 
     <main class="page-shell">
+        <section class="shark-cnn-page">
+            <div class="cnn-container glass">
+                
+                <div class="version-info">
+                    <h3>Version Roadmap</h3>
+                    <div class="roadmap">
+                        <div class="roadmap-item completed">
+                            <span class="version-badge">v1.0</span>
+                            <p>Trained on 8,000 images with on-site CNN inference</p>
+                        </div>
+                        <div class="roadmap-item completed">
+                            <span class="version-badge">v2.0</span>
+                            <p>Expanded training pipeline completed with 32,000+ images and stronger accuracy</p>
+                        </div>
+                        <div class="roadmap-item pending">
+                            <span class="version-badge">v2.1</span>
+                            <p>Extended species database (50+ species)</p>
+                        </div>
+                    </div>
 
+                    <div class="cnn-resource-drawer glass" style="margin-top: 2rem; padding: 1.5rem; border-radius: 8px;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="margin: 0;">Training resources</h4>
+                            <small>Open the dataset, epoch 99, and deploy-ready model links</small>
+                        </div>
 
-<link rel="stylesheet" href="../../frontend/css/pages/shark.css" />
+                        <div class="cnn-resource-drawer__body">
+                            <a class="cnn-resource-link cnn-resource-link--tutorial" href="shark_tutorial.html">
+                                <span class="cnn-resource-link__eyebrow">Learn and build</span>
+                                <strong>View tutorial (copy-paste friendly)</strong>
+                                <small>New page with step-by-step local and Kaggle workflows.</small>
+                            </a>
 
+                            <a class="cnn-resource-link" href="#" data-password-protected="true" target="_blank" rel="noopener noreferrer">
+                                <span class="cnn-resource-link__eyebrow">Try from scratch</span>
+                                <strong>Try our dataset</strong>
+                                <small>32,000 images for building the detector from the ground up.</small>
+                            </a>
 
-<section class="shark-cnn-page">
-    <h1>Shark Species Recognition CNN</h1>
-    <p class="subtitle">AI-powered image recognition using deep learning models</p>
+                            <a class="cnn-resource-link" href="#" data-password-protected="true" target="_blank" rel="noopener noreferrer">
+                                <span class="cnn-resource-link__eyebrow">Improve from the middle</span>
+                                <strong>Try our 99 epoch</strong>
+                                <small>Use the earlier training checkpoint with the previous metrics.</small>
+                            </a>
 
-    <div class="cnn-not-deployed glass" data-github-pages-only style="display:none;">
-        <div class="cnn-not-deployed__icon">🚧</div>
-        <h2>CNN Not Yet Deployed</h2>
-        <p>Our Shark Species Recognition CNN is not yet available on this domain due to funding constraints. We're actively working on bringing it online. In the meantime, explore the training resources and tutorials below.</p>
-    </div>
-    
-    <div class="cnn-container glass">
-        <div class="cnn-info">
-            <h2>Shark Species Recognition CNN</h2>
-            <h3>AI-Powered Image Recognition Model</h3>
-            <ul>
-                <li><strong>Model:</strong> YOLO11 Deep Learning Model</li>
-                <li><strong>Framework:</strong> PyTorch + Ultralytics</li>
-                <li><strong>Species Recognized:</strong> 15+ shark species</li>
-                <li><strong>Accuracy:</strong> ~94% on validation dataset</li>
-                <li><strong>Status:</strong> v1.0 Running On-Site</li>
-            </ul>
-        </div>
+                            <a class="cnn-resource-link cnn-resource-link--primary" href="#" data-password-protected="true" target="_blank" rel="noopener noreferrer">
+                                <span class="cnn-resource-link__eyebrow">Deploy ready</span>
+                                <strong>Current hosted model (YOLO-M, 8,000 images)</strong>
+                                <small>This smaller model is hosted for quick use. For the larger 32,000-image model, download and run locally using the two links below.</small>
+                            </a>
 
-        <div class="cnn-tutorials glass">
-            <h3>📚 Learning Resources & Tutorials</h3>
-            <div class="tutorial-links">
-                <a href="shark_tutorial.html" class="tutorial-link glass">
-                    <h4>YOLO11 CNN Tutorial</h4>
-                    <p>Step-by-step guide to training custom shark detection models. Learn the complete workflow from data preparation to model deployment.</p>
-                    <span class="arrow">→ View Tutorial</span>
-                </a>
-                <a href="shark_key.html" class="tutorial-link glass">
-                    <h4>Shark Species Recognition Key</h4>
-                    <p>Interactive visual guide to identify shark species by morphological characteristics. Perfect for marine enthusiasts and researchers.</p>
-                    <span class="arrow">→ View Guide</span>
-                </a>
+                            <div class="cnn-resource-link-group" aria-label="YOLO resources">
+                                <a class="cnn-resource-link cnn-resource-link--compact" href="#" data-password-protected="true" target="_blank" rel="noopener noreferrer">
+                                    <span class="cnn-resource-link__eyebrow">Lightweight</span>
+                                    <strong>YOLO-S</strong>
+                                </a>
+
+                                <a class="cnn-resource-link cnn-resource-link--compact" href="#" data-password-protected="true" target="_blank" rel="noopener noreferrer">
+                                    <span class="cnn-resource-link__eyebrow">Balanced</span>
+                                    <strong>YOLO-M</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </section>
+    </main>
 
-        <div class="cnn-resources glass">
-            <h3>🔗 Model Resources & Downloads</h3>
-            <div class="resources-list">
-                <p><strong>Pre-trained Models:</strong></p>
-                <ul>
-                    <li>Latest Model: <code>best.pt</code></li>
-                    <li>Epoch 99 Checkpoint: Available for download</li>
-                    <li>YOLO Small (YOLOv8s): Lightweight option</li>
-                    <li>YOLO Medium (YOLOv8m): Balanced performance</li>
-                </ul>
-                <p><strong>Training Dataset:</strong></p>
-                <ul>
-                    <li>32K Image Dataset: High-quality shark images</li>
-                    <li>Augmented with multiple angles and lighting conditions</li>
-                    <li>Available for research and educational purposes</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
-</section>
-</main>
-</body>
-</html>
-                    <input type="file" id="imageInput" name="image" accept="image/*" hidden />
-                    <label for="imageInput" class="upload-label">
-                        <p>Click to upload or drag and drop</p>
-                        <p class="small">PNG, JPG, or WebP (Max 5MB)</p>
-                    </label>
-                    <div class="upload-thumb" id="uploadThumb" style="display: none;" aria-live="polite">
-                        <img id="uploadThumbImage" alt="Selected image preview" />
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Analyze Image</button>
-            </form>
-            <div id="loadingSpinner" class="spinner" style="display: none;"></div>
-        </div>
+    <script>
+        const passwordProtectedLinks = document.querySelectorAll('.cnn-resource-link[data-password-protected="true"]');
 
-        <div id="resultsContainer" class="results-container glass" style="display: none;">
-            <h3>Recognition Results</h3>
-            <div id="resultImage"></div>
-            <div id="predictions" class="predictions-list"></div>
-        </div>
-    </div>
-
-<script>
-// Handle file upload
-const uploadArea = document.getElementById('uploadArea');
-const cnnForm = document.getElementById('cnnForm');
-const modelBootstrap = document.getElementById('modelBootstrap');
-const loadModelBtn = document.getElementById('loadModelBtn');
-const downloadProgress = document.getElementById('downloadProgress');
-const downloadProgressFill = document.getElementById('downloadProgressFill');
-const downloadStatusText = document.getElementById('downloadStatusText');
-const modelInitiallyAvailable = "" === 'true';
-const passwordProtectedLinks = document.querySelectorAll('.cnn-resource-drawer .cnn-resource-link[data-password-protected="true"]');
-
-const confidenceSlider = document.getElementById('confidenceSlider');
-const confidenceValue = document.getElementById('confidenceValue');
-const imageInput = document.getElementById('imageInput');
-const uploadThumb = document.getElementById('uploadThumb');
-const uploadThumbImage = document.getElementById('uploadThumbImage');
-const cnnCreditsLabel = document.getElementById('cnnCurrentCredits');
-let overlayEnabled = true;
-const cnnAnalysisCost = 10;
-
-function updateCreditsUI(credits) {
-    if (!Number.isFinite(Number(credits))) {
-        return;
-    }
-
-    const parsedCredits = Math.max(0, Math.floor(Number(credits)));
-    const topSnippetCredits = document.querySelector('.auth-snippet-credits');
-    const cnnCredits = document.getElementById('cnnCurrentCredits');
-    const dashboardClockCredits = document.querySelector('.clock-credits');
-
-    if (topSnippetCredits) {
-        topSnippetCredits.textContent = `${parsedCredits} credits`;
-    }
-    if (cnnCredits) {
-        cnnCredits.textContent = `Credits: ${parsedCredits}`;
-    }
-    if (dashboardClockCredits) {
-        dashboardClockCredits.textContent = `AI Credits: ${parsedCredits}`;
-    }
-}
-
-function getCsrfToken() {
-    const csrfInput = document.querySelector('#cnnForm input[name="csrfmiddlewaretoken"]');
-    return csrfInput ? csrfInput.value : '';
-}
-
-function setModelReady(ready) {
-    if (ready) {
-        modelBootstrap.classList.add('hidden');
-        cnnForm.style.display = '';
-        return;
-    }
-
-    modelBootstrap.classList.remove('hidden');
-    cnnForm.style.display = 'none';
-}
-
-function startProgressAnimation() {
-    downloadProgress.classList.remove('hidden');
-    downloadProgressFill.style.width = '0%';
-    let progress = 0;
-    const timer = setInterval(() => {
-        progress = Math.min(progress + Math.random() * 10, 92);
-        downloadProgressFill.style.width = `${progress.toFixed(0)}%`;
-    }, 220);
-    return timer;
-}
-
-function stopProgressAnimation(timer) {
-    clearInterval(timer);
-    downloadProgressFill.style.width = '100%';
-}
-
-passwordProtectedLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
-        const href = (link.getAttribute('href') || '').trim();
-        if (!href || href === '#') {
-            event.preventDefault();
-            alert('This file link is not available yet.');
-            return;
-        }
-
-        alert('Password for this file: www.serrafins.com');
-    });
-});
-
-if (loadModelBtn) {
-    loadModelBtn.addEventListener('click', async () => {
-        loadModelBtn.disabled = true;
-        downloadStatusText.textContent = 'Downloading model...';
-        const progressTimer = startProgressAnimation();
-
-        try {
-            const response = await fetch("#", {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCsrfToken(),
-                },
-            });
-
-            const data = await response.json();
-            stopProgressAnimation(progressTimer);
-
-            if (!data.success) {
-                downloadStatusText.textContent = data.error || 'Download failed.';
-                loadModelBtn.disabled = false;
-                return;
-            }
-
-            downloadStatusText.textContent = 'Model ready. Prediction UI unlocked.';
-            setTimeout(() => {
-                setModelReady(true);
-                downloadProgress.classList.add('hidden');
-                loadModelBtn.disabled = false;
-            }, 450);
-        } catch (error) {
-            clearInterval(progressTimer);
-            downloadStatusText.textContent = `Download failed: ${error.message}`;
-            loadModelBtn.disabled = false;
-        }
-    });
-}
-
-setModelReady(modelInitiallyAvailable);
-
-function updateConfidenceLabel() {
-    confidenceValue.textContent = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
-}
-
-confidenceSlider.addEventListener('input', updateConfidenceLabel);
-updateConfidenceLabel();
-
-function renderUploadPreview(file) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        uploadThumbImage.src = event.target.result;
-        uploadThumb.style.display = 'flex';
-        uploadThumb.classList.remove('thumb-pop');
-        // Restart animation for each newly selected image.
-        void uploadThumb.offsetWidth;
-        uploadThumb.classList.add('thumb-pop');
-    };
-    reader.readAsDataURL(file);
-}
-
-imageInput.addEventListener('change', () => {
-    const file = imageInput.files[0];
-    if (file) {
-        renderUploadPreview(file);
-    }
-});
-
-// Drag and drop
-document.addEventListener('dragover', (e) => {
-    if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) {
-        e.preventDefault();
-    }
-});
-
-document.addEventListener('drop', (e) => {
-    if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) {
-        e.preventDefault();
-    }
-});
-
-uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadArea.style.opacity = '0.7';
-});
-
-uploadArea.addEventListener('dragleave', () => {
-    uploadArea.style.opacity = '1';
-});
-
-uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadArea.style.opacity = '1';
-
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        const transfer = new DataTransfer();
-        transfer.items.add(files[0]);
-        imageInput.files = transfer.files;
-        renderUploadPreview(transfer.files[0]);
-    }
-});
-
-// Form submission
-cnnForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(cnnForm);
-    formData.set('confidence_threshold', confidenceSlider.value);
-    const file = imageInput.files[0];
-    
-    if (!file) {
-        alert('Please select an image');
-        return;
-    }
-
-    const creditsBeforeAnalysis = cnnCreditsLabel ? Number.parseInt(cnnCreditsLabel.textContent.replace(/\D+/g, ''), 10) : NaN;
-    if (Number.isFinite(creditsBeforeAnalysis)) {
-        updateCreditsUI(Math.max(0, creditsBeforeAnalysis - cnnAnalysisCost));
-    }
-
-    document.getElementById('loadingSpinner').style.display = 'block';
-    document.getElementById('resultsContainer').style.display = 'none';
-
-    try {
-        const response = await fetch("shark_cnn.html", {
-            method: 'POST',
-            body: formData
-        });
-
-        const data = await response.json();
-        if (data.success && typeof data.credits === 'number') {
-            updateCreditsUI(data.credits);
-        } else if (Number.isFinite(creditsBeforeAnalysis)) {
-            updateCreditsUI(creditsBeforeAnalysis);
-        }
-        
-        if (data.success) {
-            displayResults(data);
-        } else if (data.model_missing) {
-            setModelReady(false);
-            downloadStatusText.textContent = 'Model missing. Click to load our CNN.';
-        } else {
-            if (Number.isFinite(creditsBeforeAnalysis)) {
-                updateCreditsUI(creditsBeforeAnalysis);
-            }
-            alert('Error: ' + data.error);
-        }
-    } catch (error) {
-        if (Number.isFinite(creditsBeforeAnalysis)) {
-            updateCreditsUI(creditsBeforeAnalysis);
-        }
-        alert('An error occurred: ' + error.message);
-    } finally {
-        document.getElementById('loadingSpinner').style.display = 'none';
-    }
-});
-
-function displayResults(data) {
-    const resultsContainer = document.getElementById('resultsContainer');
-    const resultImage = document.getElementById('resultImage');
-    const predictions = document.getElementById('predictions');
-    const thresholdLabel = `${Math.round(parseFloat(confidenceSlider.value) * 100)}%`;
-    overlayEnabled = true;
-    let previewImage = null;
-    let overlayCanvas = null;
-
-    const detections = Array.isArray(data.predictions)
-        ? data.predictions.map((pred, index) => ({
-            ...pred,
-            id: `detection-${index}`,
-            visible: true,
-            hasBox: Array.isArray(pred.bbox) && pred.bbox.length === 4,
-        }))
-        : [];
-
-    const colorPalette = ['#4fc5ff', '#22c55e', '#f59e0b', '#ef4444', '#a855f7', '#14b8a6'];
-
-    const getDetectionColor = (index) => colorPalette[index % colorPalette.length];
-
-    const renderDetectionTabs = () => {
-        if (detections.length === 0) {
-            predictions.innerHTML = `<h4>No shark detections found</h4><p>No detection met the current confidence line of ${thresholdLabel}. Try lowering it and re-analyze.</p>`;
-            return;
-        }
-
-        const activeId = predictions.querySelector('.prediction-tab.is-active')?.dataset.detectionId || detections[0].id;
-        const activeDetection = detections.find((detection) => detection.id === activeId) || detections[0];
-
-        predictions.innerHTML = `
-            <h4>Detections (≥ ${thresholdLabel})</h4>
-            <div class="prediction-tabs" role="tablist" aria-label="Shark detections"></div>
-            <div class="prediction-panel glass" data-panel-for="${activeDetection.id}"></div>
-        `;
-
-        const tabsList = predictions.querySelector('.prediction-tabs');
-        const panel = predictions.querySelector('.prediction-panel');
-
-        const updatePanel = (detectionId) => {
-            const detection = detections.find((item) => item.id === detectionId) || detections[0];
-            if (!detection) {
-                panel.innerHTML = '';
-                return;
-            }
-
-            panel.dataset.panelFor = detection.id;
-            panel.innerHTML = `
-                <div class="prediction-panel__header">
-                    <div>
-                        <span class="prediction-panel__eyebrow">Active detection</span>
-                        <h5>${detection.species}</h5>
-                    </div>
-                    <div class="prediction-panel__meta">
-                        <span class="prediction-panel__confidence">${(detection.confidence * 100).toFixed(2)}%</span>
-                        <span class="prediction-panel__box-state ${detection.visible ? 'is-visible' : 'is-hidden'}">
-                            ${detection.visible ? 'Box visible' : 'Box hidden'}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="prediction-panel__body">
-                    <p class="prediction-panel__species">${detection.species}</p>
-                    <div class="confidence-bar">
-                        <div class="bar-fill" style="width: ${detection.confidence * 100}%; background: ${getDetectionColor(detection.index)}"></div>
-                    </div>
-                    <p class="prediction-panel__notes">
-                        ${detection.hasBox ? 'This detection has a bounding box on the image overlay.' : 'This detection does not include a bounding box.'}
-                    </p>
-                </div>
-            `;
-
-            predictions.querySelectorAll('.prediction-tab').forEach((tab) => {
-                tab.classList.toggle('is-active', tab.dataset.detectionId === detection.id);
-                tab.setAttribute('aria-selected', tab.dataset.detectionId === detection.id ? 'true' : 'false');
-            });
-
-            if (previewImage && overlayCanvas) {
-                drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
-            }
-        };
-
-        detections.forEach((detection, index) => {
-            const tab = document.createElement('div');
-            tab.className = `prediction-tab${index === 0 ? ' is-active' : ''}`;
-            tab.dataset.detectionId = detection.id;
-            tab.setAttribute('role', 'tab');
-            tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-
-            const visibilityButtonLabel = detection.visible ? 'Hide box' : 'Show box';
-
-            tab.innerHTML = `
-                <button type="button" class="prediction-tab__select" aria-label="Show details for ${detection.species}">
-                    <span class="prediction-tab__rank">#${index + 1}</span>
-                    <span class="prediction-tab__species">${detection.species}</span>
-                    <span class="prediction-tab__confidence">${(detection.confidence * 100).toFixed(2)}%</span>
-                </button>
-                <button type="button" class="prediction-tab__toggle ${detection.visible ? 'is-visible' : 'is-hidden'}" aria-pressed="true">
-                    ${visibilityButtonLabel}
-                </button>
-            `;
-
-            const selectButton = tab.querySelector('.prediction-tab__select');
-            const toggleButton = tab.querySelector('.prediction-tab__toggle');
-
-            selectButton.addEventListener('click', () => {
-                updatePanel(detection.id);
-            });
-
-            toggleButton.addEventListener('click', () => {
-                detection.visible = !detection.visible;
-                toggleButton.setAttribute('aria-pressed', detection.visible ? 'true' : 'false');
-                toggleButton.textContent = detection.visible ? 'Hide box' : 'Show box';
-                toggleButton.classList.toggle('is-hidden', !detection.visible);
-                toggleButton.classList.toggle('is-visible', detection.visible);
-
-                if (panel.dataset.panelFor === detection.id) {
-                    const boxState = panel.querySelector('.prediction-panel__box-state');
-                    if (boxState) {
-                        boxState.classList.toggle('is-visible', detection.visible);
-                        boxState.classList.toggle('is-hidden', !detection.visible);
-                        boxState.textContent = detection.visible ? 'Box visible' : 'Box hidden';
-                    }
+        passwordProtectedLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const href = (link.getAttribute('href') || '').trim();
+                if (!href || href === '#') {
+                    event.preventDefault();
+                    alert('This file link is not available yet.');
+                    return;
                 }
 
-                drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
+                alert('Password for this file: www.serrafins.com');
             });
-
-            tabsList.appendChild(tab);
         });
-
-        updatePanel(activeDetection.id);
-    };
-
-    // Display image
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        resultImage.innerHTML = `
-            <div class="result-stage fade-in" id="resultStage">
-                <div class="result-media">
-                    <img id="resultPreviewImage" src="${e.target.result}" alt="Uploaded shark image" />
-                    <canvas id="resultOverlayCanvas" class="result-overlay" aria-hidden="true" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></canvas>
-                    <button 
-                        type="button" 
-                        id="overlayToggle"
-                        class="btn btn-soft overlay-toggle"
-                        aria-label="Toggle highest-confidence shark box overlay inside the image"
-                        aria-pressed="true"
-                    >Overlay: On</button>
-                </div>
-            </div>
-        `;
-
-        previewImage = document.getElementById('resultPreviewImage');
-        overlayCanvas = document.getElementById('resultOverlayCanvas');
-        const overlayToggle = document.getElementById('overlayToggle');
-
-        const drawOverlay = () => drawDetectionBoxes(data, previewImage, overlayCanvas, overlayEnabled, detections);
-
-        previewImage.addEventListener('load', drawOverlay, { once: true });
-
-        if (!hasDrawableBox(data)) {
-            overlayToggle.disabled = true;
-            overlayToggle.textContent = 'No box available';
-        }
-
-        overlayToggle.addEventListener('click', () => {
-            overlayEnabled = !overlayEnabled;
-            overlayToggle.setAttribute('aria-pressed', overlayEnabled ? 'true' : 'false');
-            overlayToggle.classList.toggle('overlay-toggle--off', !overlayEnabled);
-            overlayToggle.textContent = overlayEnabled ? 'Overlay: On' : 'Overlay: Off';
-            drawOverlay();
-        });
-
-        window.addEventListener('resize', drawOverlay);
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-
-    // Display predictions
-    renderDetectionTabs();
-
-    resultsContainer.style.display = 'block';
-}
-
-function hasDrawableBox(data) {
-    return data.predictions.some((pred) => Array.isArray(pred.bbox) && pred.bbox.length === 4);
-}
-
-function getHighestConfidencePrediction(data) {
-    const withBoxes = data.predictions.filter((pred) => Array.isArray(pred.bbox) && pred.bbox.length === 4);
-    if (withBoxes.length === 0) {
-        return null;
-    }
-
-    return withBoxes.reduce((best, current) => {
-        return current.confidence > best.confidence ? current : best;
-    });
-}
-
-function drawHighestConfidenceBox(data, imageElement, canvasElement, shouldShow) {
-    const context = canvasElement.getContext('2d');
-    const width = imageElement.clientWidth;
-    const height = imageElement.clientHeight;
-
-    if (!width || !height || !imageElement.naturalWidth || !imageElement.naturalHeight) {
-        return;
-    }
-
-    canvasElement.width = width;
-    canvasElement.height = height;
-    context.clearRect(0, 0, width, height);
-
-    if (!shouldShow) {
-        return;
-    }
-
-    const topPrediction = getHighestConfidencePrediction(data);
-    if (!topPrediction) {
-        return;
-    }
-
-    const [x1, y1, x2, y2] = topPrediction.bbox;
-    const boxX = x1 * width;
-    const boxY = y1 * height;
-    const boxWidth = (x2 - x1) * width;
-    const boxHeight = (y2 - y1) * height;
-
-    context.strokeStyle = '#4fc5ff';
-    context.lineWidth = 3;
-    context.setLineDash([8, 5]);
-    context.shadowColor = 'rgba(79, 197, 255, 0.55)';
-    context.shadowBlur = 14;
-    context.strokeRect(boxX, boxY, boxWidth, boxHeight);
-    context.setLineDash([]);
-    context.shadowBlur = 0;
-
-    const label = `${topPrediction.species} ${(topPrediction.confidence * 100).toFixed(1)}%`;
-    context.font = '600 13px Inter, sans-serif';
-    const textWidth = context.measureText(label).width;
-    const labelX = Math.max(8, boxX);
-    const labelY = Math.max(24, boxY - 8);
-
-    context.fillStyle = 'rgba(5, 22, 39, 0.82)';
-    context.fillRect(labelX - 6, labelY - 18, textWidth + 12, 22);
-    context.fillStyle = '#f1fbff';
-    context.fillText(label, labelX, labelY - 3);
-}
-
-function drawDetectionBoxes(data, imageElement, canvasElement, shouldShow, detections) {
-    const context = canvasElement.getContext('2d');
-    const width = imageElement.clientWidth;
-    const height = imageElement.clientHeight;
-
-    if (!width || !height || !imageElement.naturalWidth || !imageElement.naturalHeight) {
-        return;
-    }
-
-    canvasElement.width = width;
-    canvasElement.height = height;
-    context.clearRect(0, 0, width, height);
-
-    if (!shouldShow) {
-        return;
-    }
-
-    const visibleDetections = detections.filter((detection) => detection.visible && detection.hasBox);
-    visibleDetections.forEach((detection, index) => {
-        const [x1, y1, x2, y2] = detection.bbox;
-        const boxX = x1 * width;
-        const boxY = y1 * height;
-        const boxWidth = (x2 - x1) * width;
-        const boxHeight = (y2 - y1) * height;
-        const color = ['#4fc5ff', '#22c55e', '#f59e0b', '#ef4444', '#a855f7', '#14b8a6'][index % 6];
-
-        context.strokeStyle = color;
-        context.lineWidth = 3;
-        context.setLineDash([8, 5]);
-        context.shadowColor = color;
-        context.shadowBlur = 14;
-        context.strokeRect(boxX, boxY, boxWidth, boxHeight);
-        context.setLineDash([]);
-        context.shadowBlur = 0;
-
-        const label = `${detection.species} ${(detection.confidence * 100).toFixed(1)}%`;
-        context.font = '600 13px Inter, sans-serif';
-        const textWidth = context.measureText(label).width;
-        const labelX = Math.max(8, boxX);
-        const labelY = Math.max(24, boxY - 8);
-
-        context.fillStyle = 'rgba(5, 22, 39, 0.82)';
-        context.fillRect(labelX - 6, labelY - 18, textWidth + 12, 22);
-        context.fillStyle = '#f1fbff';
-        context.fillText(label, labelX, labelY - 3);
-    });
-}
-
-</script>
-    
-    <div class="cnn-login-gate glass" data-requires-backend>
-        <div class="cnn-login-gate__hero">
-            <div class="cnn-login-gate__eyebrow">Account required</div>
-            <h2>Unlock Shark Species CNN</h2>
-            <p>Sign in to run image analysis, keep track of credit usage, and keep the model access clean for everyone.</p>
-        </div>
-
-        <div class="cnn-login-gate__highlights">
-            <div class="cnn-highlight-card cnn-highlight-card--daily">
-                <span class="cnn-highlight-card__label">Daily credits</span>
-                <strong>100</strong>
-                <p>Reset every day for all users.</p>
-            </div>
-            <div class="cnn-highlight-card cnn-highlight-card--usage">
-                <span class="cnn-highlight-card__label">Per image</span>
-                <strong>10</strong>
-                <p>Charged only when you analyze a shark image.</p>
-            </div>
-        </div>
-
-        <div class="cnn-login-gate__footer">
-            <div class="cnn-login-gate__note">
-                <span class="cnn-login-gate__note-dot"></span>
-                <span>Fast sign-in, private usage tracking, instant CNN access.</span>
-            </div>
-            <div class="actions">
-                <a href="#?next=" class="btn btn-primary">Go to Login</a>
-                <a href="#?next=" class="btn btn-soft auth-google-btn">Continue with Google</a>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class="version-info">
-        <h3>Version Roadmap</h3>
-        <div class="roadmap">
-            <div class="roadmap-item completed">
-                <span class="version-badge">v1.0</span>
-                <p>Trained on 8,000 images with on-site CNN inference</p>
-            </div>
-            <div class="roadmap-item completed">
-                <span class="version-badge">v2.0</span>
-                <p>Expanded training pipeline completed with 32,000+ images and stronger accuracy</p>
-            </div>
-            <div class="roadmap-item pending">
-                <span class="version-badge">v2.1</span>
-                <p>Extended species database (50+ species)</p>
-            </div>
-        </div>
-
-        <details class="cnn-resource-drawer glass">
-            <summary>
-                <span>
-                    <strong>Training resources</strong>
-                    <small>Open the dataset, epoch 99, and deploy-ready model links</small>
-                </span>
-                <span class="cnn-resource-drawer__chevron" aria-hidden="true">▾</span>
-            </summary>
-
-            <div class="cnn-resource-drawer__body">
-                <a class="cnn-resource-link cnn-resource-link--tutorial" href="shark_tutorial.html">
-                    <span class="cnn-resource-link__eyebrow">Learn and build</span>
-                    <strong>View tutorial (copy-paste friendly)</strong>
-                    <small>New page with step-by-step local and Kaggle workflows.</small>
-                </a>
-
-                <a
-                    class="cnn-resource-link"
-                    href="#"
-                    data-password-protected="true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="cnn-resource-link__eyebrow">Try from scratch</span>
-                    <strong>Try our dataset</strong>
-                    <small>32,000 images for building the detector from the ground up.</small>
-                </a>
-
-                <a
-                    class="cnn-resource-link"
-                    href="#"
-                    data-password-protected="true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="cnn-resource-link__eyebrow">Improve from the middle</span>
-                    <strong>Try our 99 epoch</strong>
-                    <small>Use the earlier training checkpoint with the previous metrics.</small>
-                </a>
-
-                <a
-                    class="cnn-resource-link cnn-resource-link--primary"
-                    href="#"
-                    data-password-protected="true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="cnn-resource-link__eyebrow">Deploy ready</span>
-                    <strong>Current hosted model (YOLO-M, 8,000 images)</strong>
-                    <small>This smaller model is hosted for quick use. For the larger 32,000-image model, download and run locally using the two links below.</small>
-                </a>
-
-                <div class="cnn-resource-link-group" aria-label="YOLO resources">
-                    <a
-                        class="cnn-resource-link cnn-resource-link--compact"
-                        href="#"
-                        data-password-protected="true"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="cnn-resource-link__eyebrow">Lightweight</span>
-                        <strong>YOLO-S</strong>
-                    </a>
-
-                    <a
-                        class="cnn-resource-link cnn-resource-link--compact"
-                        href="#"
-                        data-password-protected="true"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="cnn-resource-link__eyebrow">Balanced</span>
-                        <strong>YOLO-M</strong>
-                    </a>
-                </div>
-            </div>
-        </details>
-    </div>
-</section>
-    </main>
+    </script>
 </body>
 </html>

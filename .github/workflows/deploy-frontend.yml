@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # CRITICAL: This tells GitHub to IGNORE the backend and ONLY deploy your frontend folder
-          path: './frontend'
+          path: '.'
           
       - name: Deploy to GitHub Pages
         id: deployment
